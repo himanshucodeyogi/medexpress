@@ -147,14 +147,14 @@ const ProductDetail = () => {
                 <Plus className="w-5 h-5" />
               </button>
             </div>
-            <button className="btn btn-primary flex-1 py-4 text-lg w-full">
+            <Link to="/cart" className="btn btn-primary flex-1 py-4 text-lg w-full flex items-center justify-center gap-2">
               <ShoppingCart className="w-5 h-5" /> Add to Cart
-            </button>
+            </Link>
           </div>
 
-          <button className="btn bg-white border-2 border-primary text-primary hover:bg-primary/5 py-4 text-lg w-full mb-8">
+          <Link to="/checkout" className="btn bg-white border-2 border-primary text-primary hover:bg-primary/5 py-4 text-lg w-full mb-8 flex items-center justify-center">
             Buy Now
-          </button>
+          </Link>
 
           {/* Prescription Alert */}
           <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 mb-8">

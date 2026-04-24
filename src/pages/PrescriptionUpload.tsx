@@ -1,8 +1,11 @@
 import { Upload, CheckCircle2, FileText, ShieldCheck, Clock, ArrowRight, User, Phone, MessageSquare } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const PrescriptionUpload = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
 
   const steps = [
@@ -10,6 +13,15 @@ const PrescriptionUpload = () => {
     { id: 2, label: 'Reviewing' },
     { id: 3, label: 'Result' },
   ];
+
+  const handleSubmit = () => {
+    setIsSubmitting(true);
+    // Simulate API call
+    setTimeout(() => {
+      setIsSubmitting(false);
+      navigate('/dashboard');
+    }, 2000);
+  };
 
   return (
     <div className="max-w-4xl mx-auto px-4 md:px-8 py-12">
@@ -106,8 +118,12 @@ const PrescriptionUpload = () => {
           <button className="text-sm font-bold text-slate-400 hover:text-slate-600 uppercase tracking-widest transition-colors">
             Cancel Upload
           </button>
-          <button className="btn btn-primary px-10 py-4 font-bold shadow-xl shadow-primary/20">
-            Submit for Review <ArrowRight className="w-5 h-5" />
+          <button 
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+            className="btn btn-primary px-10 py-4 font-bold shadow-xl shadow-primary/20 disabled:opacity-50"
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit for Review'} <ArrowRight className="w-5 h-5" />
           </button>
         </div>
       </div>

@@ -36,9 +36,9 @@ const HomePage = () => {
               <Link to="/catalog" className="btn btn-primary px-8 py-4 text-lg w-full sm:w-auto">
                 Order Now <ArrowRight className="w-5 h-5" />
               </Link>
-              <button className="btn bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-50 px-8 py-4 text-lg w-full sm:w-auto shadow-sm">
+              <Link to="/upload" className="btn bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-50 px-8 py-4 text-lg w-full sm:w-auto shadow-sm">
                 Upload Prescription
-              </button>
+              </Link>
             </div>
             <div className="mt-12 flex items-center justify-center lg:justify-start gap-8">
               <div>
@@ -180,7 +180,7 @@ const HomePage = () => {
             <h2 className="text-3xl font-bold mb-6">Ready to get started?</h2>
             <p className="text-slate-400 mb-10 max-w-xl mx-auto">Join thousands of patients who trust MediFast for their daily healthcare needs.</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="btn btn-primary px-10 py-4 w-full sm:w-auto">Upload Now</button>
+              <Link to="/upload" className="btn btn-primary px-10 py-4 w-full sm:w-auto">Upload Now</Link>
               <Link to="/catalog" className="btn bg-white/10 hover:bg-white/20 text-white border border-white/20 px-10 py-4 w-full sm:w-auto">Shop Catalog</Link>
             </div>
           </div>

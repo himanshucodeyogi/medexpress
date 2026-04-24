@@ -43,7 +43,7 @@ const Navbar = () => {
           <div className="flex items-center gap-3 ml-2 pl-4 border-l border-slate-200">
             <div className="text-right hidden sm:block">
               <p className="text-sm font-bold text-slate-800">Alex Johnson</p>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">View Profile</p>
+              <Link to="/admin/profile" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest hover:text-primary transition-colors">View Profile</Link>
             </div>
             <img 
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
@@ -67,12 +67,16 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link to="/catalog" className="text-slate-600 hover:text-primary font-bold text-sm transition-colors uppercase tracking-widest">Shop Medicines</Link>
-          <Link to="/upload" className="text-slate-600 hover:text-primary font-bold text-sm transition-colors flex items-center gap-2 uppercase tracking-widest">
+        <div className="hidden md:flex items-center gap-6">
+          <Link to="/catalog" className="text-slate-600 hover:text-primary font-bold text-xs transition-colors uppercase tracking-widest">Shop</Link>
+          <Link to="/upload" className="text-slate-600 hover:text-primary font-bold text-xs transition-colors flex items-center gap-2 uppercase tracking-widest">
             <Upload className="w-4 h-4" />
-            Upload Prescription
+            Upload Rx
           </Link>
+          <Link to="/dashboard" className="text-slate-600 hover:text-primary font-bold text-xs transition-colors uppercase tracking-widest">Patient</Link>
+          <Link to="/admin" className="text-slate-600 hover:text-primary font-bold text-xs transition-colors uppercase tracking-widest">Admin</Link>
+          <Link to="/delivery" className="text-slate-600 hover:text-primary font-bold text-xs transition-colors uppercase tracking-widest">Delivery</Link>
+          <Link to="/admin/login" className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-blue-100 transition-all border border-blue-100">Admin Login</Link>
         </div>
 
         {/* Search Bar Desktop */}
@@ -93,14 +97,23 @@ const Navbar = () => {
               <Bell className="w-5 h-5 text-slate-600" />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
             </button>
-            <button className="p-2 hover:bg-slate-100 rounded-full transition-colors">
+            <Link to="/cart" className="p-2 hover:bg-slate-100 rounded-full transition-colors relative">
               <ShoppingCart className="w-5 h-5 text-slate-600" />
-            </button>
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white">2</span>
+            </Link>
           </div>
           <div className="flex items-center gap-3 border-l border-slate-200 pl-4">
             <div className="text-right hidden sm:block">
               <p className="text-sm font-bold text-slate-800">Alex Johnson</p>
-              <Link to="/dashboard" className="text-[10px] font-bold text-slate-400 hover:text-primary transition-colors uppercase tracking-widest">Patient Portal</Link>
+              <div className="flex gap-2">
+                <Link to="/dashboard" className="text-[10px] font-bold text-slate-400 hover:text-primary transition-colors uppercase tracking-widest">My Dashboard</Link>
+                <span className="text-[10px] text-slate-200">•</span>
+                <Link to="/profile" className="text-[10px] font-bold text-slate-400 hover:text-primary transition-colors uppercase tracking-widest">Account Settings</Link>
+                <span className="text-[10px] text-slate-200">•</span>
+                <Link to="/orders" className="text-[10px] font-bold text-slate-400 hover:text-primary transition-colors uppercase tracking-widest">My Orders</Link>
+                <span className="text-[10px] text-slate-200">•</span>
+                <Link to="/login" className="text-[10px] font-bold text-slate-400 hover:text-primary transition-colors uppercase tracking-widest">Logout</Link>
+              </div>
             </div>
             <img 
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
@@ -123,9 +136,15 @@ const Navbar = () => {
               <Upload className="w-4 h-4" />
               Upload Prescription
             </Link>
+            <Link to="/register-store" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Partner With Us</Link>
+            <Link to="/cart" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Shopping Cart</Link>
+            <Link to="/login" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Login / Register</Link>
+            <Link to="/admin/login" className="text-blue-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Admin Login</Link>
             <Link to="/dashboard" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Patient Portal</Link>
             <Link to="/delivery" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Delivery Portal</Link>
             <Link to="/admin" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Admin Portal</Link>
+            <Link to="/admin/store" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Store Profile</Link>
+            <Link to="/delivery/profile" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Courier Profile</Link>
           </div>
         </div>
       )}

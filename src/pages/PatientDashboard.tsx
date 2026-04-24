@@ -28,18 +28,19 @@ const PatientDashboard = () => {
       <aside className="w-72 bg-white border-r border-slate-100 p-8 hidden lg:flex flex-col gap-10">
         <div className="flex flex-col gap-2">
           {[
-            { icon: <LayoutDashboard className="w-5 h-5" />, label: 'Dashboard', active: true },
-            { icon: <ShoppingBag className="w-5 h-5" />, label: 'My Orders', active: false },
-            { icon: <Upload className="w-5 h-5" />, label: 'Upload Prescription', active: false },
-            { icon: <MapPin className="w-5 h-5" />, label: 'Addresses', active: false },
-            { icon: <Settings className="w-5 h-5" />, label: 'Settings', active: false },
+            { icon: <LayoutDashboard className="w-5 h-5" />, label: 'Dashboard', path: '/dashboard', active: true },
+            { icon: <ShoppingBag className="w-5 h-5" />, label: 'My Orders', path: '/orders', active: false },
+            { icon: <Upload className="w-5 h-5" />, label: 'Upload Prescription', path: '/upload', active: false },
+            { icon: <MapPin className="w-5 h-5" />, label: 'Addresses', path: '/dashboard', active: false },
+            { icon: <Settings className="w-5 h-5" />, label: 'Settings', path: '/dashboard', active: false },
           ].map((item) => (
-            <button 
+            <Link 
               key={item.label}
+              to={item.path}
               className={`flex items-center gap-4 px-4 py-3 rounded-xl font-bold text-sm transition-all ${item.active ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
             >
               {item.icon} {item.label}
-            </button>
+            </Link>
           ))}
         </div>
 
@@ -58,12 +59,12 @@ const PatientDashboard = () => {
             <p className="text-slate-500 font-medium">Welcome back, Alex. Your last order is arriving in 48 hours.</p>
           </div>
           <div className="flex items-center gap-3">
-            <button className="btn bg-white border border-slate-200 text-slate-700 px-6 font-bold shadow-sm hover:bg-slate-50">
+            <Link to="/catalog" className="btn bg-white border border-slate-200 text-slate-700 px-6 font-bold shadow-sm hover:bg-slate-50">
               <Plus className="w-4 h-4" /> New Order
-            </button>
-            <button className="btn btn-primary px-6 font-bold">
+            </Link>
+            <Link to="/upload" className="btn btn-primary px-6 font-bold">
               <Upload className="w-4 h-4" /> Upload Rx
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -87,8 +88,8 @@ const PatientDashboard = () => {
           <div className="lg:col-span-2 space-y-10">
             <div className="card p-8">
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-xl font-bold text-slate-900">Recent Orders</h2>
-                <button className="text-sm font-bold text-primary hover:underline">View History</button>
+                <h2 className="text-xl font-bold text-slate-900">My Orders</h2>
+                <Link to="/orders" className="text-sm font-bold text-primary hover:underline">View History</Link>
               </div>
 
               <div className="flex flex-col gap-6">

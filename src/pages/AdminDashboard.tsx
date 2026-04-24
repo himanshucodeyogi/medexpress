@@ -1,5 +1,6 @@
 import { ShoppingCart, DollarSign, Truck, FileText, Clock, AlertTriangle, ChevronRight, MoreHorizontal, CheckCircle2, XCircle, BarChart3, Users, Package, FileCheck, TrendingUp, TrendingDown, Settings, LogOut } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
   const data = [
@@ -42,26 +43,29 @@ const AdminDashboard = () => {
     { patient: 'Kevin Space', doctor: 'Dr. Marcus Aurelius', time: '1 hour ago', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&facepad=2&w=48&h=48&q=80' },
   ];
 
+  const sidebarItems = [
+    { icon: <BarChart3 className="w-5 h-5" />, label: 'Overview', path: '/admin', active: true },
+    { icon: <Package className="w-5 h-5" />, label: 'Orders', path: '/admin/orders', active: false },
+    { icon: <ShoppingCart className="w-5 h-5" />, label: 'Products', path: '/admin/inventory', active: false },
+    { icon: <Users className="w-5 h-5" />, label: 'Users', path: '/admin/users', active: false },
+    { icon: <FileCheck className="w-5 h-5" />, label: 'Prescriptions', path: '/admin', active: false },
+    { icon: <TrendingUp className="w-5 h-5" />, label: 'Reports', path: '/admin', active: false },
+    { icon: <Settings className="w-5 h-5" />, label: 'Settings', path: '/admin', active: false },
+  ];
+
   return (
     <div className="flex bg-[#f8fafc] min-h-screen">
       {/* Sidebar */}
       <aside className="w-72 bg-white border-r border-slate-100 p-8 hidden lg:flex flex-col gap-10">
         <div className="flex flex-col gap-2">
-          {[
-            { icon: <BarChart3 className="w-5 h-5" />, label: 'Overview', active: true },
-            { icon: <Package className="w-5 h-5" />, label: 'Orders', active: false },
-            { icon: <ShoppingCart className="w-5 h-5" />, label: 'Products', active: false },
-            { icon: <Users className="w-5 h-5" />, label: 'Users', active: false },
-            { icon: <FileCheck className="w-5 h-5" />, label: 'Prescriptions', active: false },
-            { icon: <TrendingUp className="w-5 h-5" />, label: 'Reports', active: false },
-            { icon: <Settings className="w-5 h-5" />, label: 'Settings', active: false },
-          ].map((item) => (
-            <button 
+          {sidebarItems.map((item) => (
+            <Link 
               key={item.label}
+              to={item.path}
               className={`flex items-center gap-4 px-4 py-3 rounded-xl font-bold text-sm transition-all ${item.active ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
             >
               {item.icon} {item.label}
-            </button>
+            </Link>
           ))}
         </div>
 
@@ -83,9 +87,9 @@ const AdminDashboard = () => {
             <button className="btn bg-white border border-slate-200 text-slate-700 px-6 font-bold shadow-sm hover:bg-slate-50">
               Export Report
             </button>
-            <button className="btn btn-primary px-6 font-bold">
+            <Link to="/admin/orders" className="btn btn-primary px-6 font-bold">
               Manage Orders
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -169,7 +173,7 @@ const AdminDashboard = () => {
                   <h2 className="text-xl font-bold text-slate-900">Recent Orders</h2>
                   <p className="text-xs text-slate-400 font-bold uppercase mt-1 tracking-widest">Managing the latest customer transactions</p>
                 </div>
-                <button className="text-xs font-bold text-primary hover:underline uppercase tracking-widest">View All</button>
+                <Link to="/admin/orders" className="text-xs font-bold text-primary hover:underline uppercase tracking-widest">View All</Link>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full">
@@ -239,9 +243,9 @@ const AdminDashboard = () => {
                     </div>
                   </div>
                 ))}
-                <button className="w-full py-4 border-2 border-slate-50 rounded-2xl text-xs font-bold text-slate-500 hover:bg-slate-50 hover:text-slate-700 transition-all uppercase tracking-widest mt-4">
+                <Link to="/admin/inventory" className="w-full block text-center py-4 border-2 border-slate-50 rounded-2xl text-xs font-bold text-slate-500 hover:bg-slate-50 hover:text-slate-700 transition-all uppercase tracking-widest mt-4">
                   View All Inventory
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -272,7 +276,7 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <button className="flex-1 btn btn-primary py-2 text-xs font-bold">Review</button>
+                      <Link to={`/admin/prescription/${idx + 1}`} className="flex-1 btn btn-primary py-2 text-xs font-bold text-center">Review</Link>
                       <button className="p-2 border border-slate-100 rounded-xl text-slate-400 hover:text-green-600 hover:bg-white hover:shadow-sm transition-all">
                         <CheckCircle2 className="w-4 h-4" />
                       </button>

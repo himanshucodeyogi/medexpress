@@ -26,25 +26,40 @@ const Footer = () => {
 
         {/* Quick Links */}
         <div>
-          <h4 className="text-white font-bold mb-6">Quick Links</h4>
+          <h4 className="text-white font-bold mb-6">Shop & Services</h4>
           <ul className="flex flex-col gap-4 text-sm">
             <li><Link to="/catalog" className="hover:text-primary transition-colors">Browse Medicines</Link></li>
             <li><Link to="/upload" className="hover:text-primary transition-colors">Upload Prescription</Link></li>
-            <li><Link to="/dashboard" className="hover:text-primary transition-colors">Patient Dashboard</Link></li>
-            <li><Link to="/delivery" className="hover:text-primary transition-colors">Delivery Dashboard</Link></li>
-            <li><Link to="/admin" className="hover:text-primary transition-colors">Admin Portal</Link></li>
+            <li><Link to="/cart" className="hover:text-primary transition-colors">Shopping Cart</Link></li>
+            <li><Link to="/checkout" className="hover:text-primary transition-colors">Checkout</Link></li>
+            <li><Link to="/track/882910" className="hover:text-primary transition-colors">Track Order</Link></li>
+            <li><Link to="/payment-scan" className="hover:text-primary transition-colors">Payment Scan</Link></li>
           </ul>
         </div>
 
-        {/* Support */}
+        {/* Portals */}
         <div>
-          <h4 className="text-white font-bold mb-6">Support</h4>
+          <h4 className="text-white font-bold mb-6">User Portals</h4>
           <ul className="flex flex-col gap-4 text-sm">
-            <li><Link to="/track/882910" className="hover:text-primary transition-colors">Track Your Order</Link></li>
-            <li><button className="hover:text-primary transition-colors text-left">Help Center</button></li>
-            <li><button className="hover:text-primary transition-colors text-left">Contact Us</button></li>
-            <li><button className="hover:text-primary transition-colors text-left">Returns & Refunds</button></li>
-            <li><button className="hover:text-primary transition-colors text-left">Shipping Policy</button></li>
+            <li><Link to="/dashboard" className="hover:text-primary transition-colors">Patient Dashboard</Link></li>
+            <li><Link to="/orders" className="hover:text-primary transition-colors">My Orders</Link></li>
+            <li><Link to="/profile" className="hover:text-primary transition-colors">My Profile</Link></li>
+            <li><Link to="/admin" className="hover:text-primary transition-colors">Admin Dashboard</Link></li>
+            <li><Link to="/delivery" className="hover:text-primary transition-colors">Delivery Dashboard</Link></li>
+            <li><Link to="/register-store" className="hover:text-primary transition-colors">Register Store</Link></li>
+          </ul>
+        </div>
+
+        {/* Admin & Support */}
+        <div>
+          <h4 className="text-white font-bold mb-6">Admin & Support</h4>
+          <ul className="flex flex-col gap-4 text-sm">
+            <li><Link to="/admin/login" className="hover:text-primary transition-colors">Admin Login</Link></li>
+            <li><Link to="/admin/store" className="hover:text-primary transition-colors">Store Profile</Link></li>
+            <li><Link to="/delivery/profile" className="hover:text-primary transition-colors">Delivery Profile</Link></li>
+            <li><Link to="/help" className="hover:text-primary transition-colors">Help Center</Link></li>
+            <li><Link to="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
+            <li><Link to="/about" className="hover:text-primary transition-colors">About Us</Link></li>
           </ul>
         </div>
 

@@ -188,9 +188,9 @@ const CatalogPage = () => {
                       In Stock - Express Delivery
                     </div>
                     <div className="flex gap-2">
-                      <button className="btn btn-primary flex-1 py-2 text-sm">
+                      <Link to="/cart" className="btn btn-primary flex-1 py-2 text-sm flex items-center justify-center gap-2">
                         <ShoppingCart className="w-4 h-4" /> Add to Cart
-                      </button>
+                      </Link>
                       <button className="p-2 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
                         <SlidersHorizontal className="w-4 h-4 text-slate-500" />
                       </button>
