@@ -147,11 +147,11 @@ const PatientDashboard = () => {
                             <CheckCircle2 className="w-4 h-4 text-slate-300" />
                           </div>
                         </div>
-                        <div className="flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                          <span>Ordered</span>
-                          <span>Processing</span>
-                          <span>Shipped</span>
-                          <span className="text-slate-300">Delivered</span>
+                        <div className="grid grid-cols-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                          <span className="text-center">Ordered</span>
+                          <span className="text-center">Processing</span>
+                          <span className="text-center">Shipped</span>
+                          <span className="text-center text-slate-300">Delivered</span>
                         </div>
                         <div className="flex items-center justify-end gap-3 mt-8">
                           <button className="text-xs font-bold text-slate-500 hover:text-slate-700">Help Center</button>

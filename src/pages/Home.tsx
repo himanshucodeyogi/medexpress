@@ -175,7 +175,7 @@ const HomePage = () => {
 
       {/* CTA Section */}
       <section className="py-20 px-6">
-        <div className="max-w-5xl mx-auto bg-slate-900 rounded-[2rem] p-12 text-center text-white relative overflow-hidden">
+        <div className="max-w-5xl mx-auto bg-slate-900 rounded-[2rem] p-8 sm:p-10 md:p-12 text-center text-white relative overflow-hidden">
           <div className="relative z-10">
             <h2 className="text-3xl font-bold mb-6">Ready to get started?</h2>
             <p className="text-slate-400 mb-10 max-w-xl mx-auto">Join thousands of patients who trust MediFast for their daily healthcare needs.</p>

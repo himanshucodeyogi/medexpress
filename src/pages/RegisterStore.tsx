@@ -91,24 +91,24 @@ const RegisterStore = () => {
 
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Store Images *</label>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <button type="button" className="aspect-square border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-primary hover:bg-primary/5 transition-all group">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                      <button type="button" className="aspect-square border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-primary hover:bg-primary/5 transition-all group min-h-[100px]">
                         <Upload className="w-6 h-6 text-slate-400 group-hover:text-primary" />
                         <span className="text-[10px] font-bold text-slate-400 group-hover:text-primary">Upload Photo</span>
                       </button>
-                      <div className="aspect-square bg-slate-100 rounded-xl overflow-hidden relative group">
+                      <div className="aspect-square bg-slate-100 rounded-xl overflow-hidden relative group min-h-[100px]">
                         <img src="https://images.unsplash.com/photo-1586015555751-63bb77f4322a?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Pharmacy" className="w-full h-full object-cover" />
-                        <button type="button" className="absolute top-2 right-2 w-6 h-6 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <AlertCircle className="w-4 h-4" />
+                        <button type="button" className="absolute top-2 right-2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <AlertCircle className="w-5 h-5" />
                         </button>
                       </div>
-                      <div className="aspect-square bg-slate-100 rounded-xl overflow-hidden relative group">
+                      <div className="aspect-square bg-slate-100 rounded-xl overflow-hidden relative group min-h-[100px]">
                         <img src="https://images.unsplash.com/photo-1576602976047-174e57a47881?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" alt="Pharmacy" className="w-full h-full object-cover" />
-                        <button type="button" className="absolute top-2 right-2 w-6 h-6 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <AlertCircle className="w-4 h-4" />
+                        <button type="button" className="absolute top-2 right-2 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <AlertCircle className="w-5 h-5" />
                         </button>
                       </div>
-                      <div className="aspect-square border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-2">
+                      <div className="aspect-square border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-2 min-h-[100px]">
                         <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
                         <span className="text-[10px] font-bold text-slate-400">Uploading...</span>
                       </div>
