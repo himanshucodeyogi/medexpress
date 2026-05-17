@@ -29,6 +29,7 @@ import RegisterStore from './pages/RegisterStore';
 import StoreProfile from './pages/StoreProfile';
 import DeliveryProfile from './pages/DeliveryProfile';
 import AdminLogin from './pages/AdminLogin';
+import DeliveryLogin from './pages/DeliveryLogin';
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
             <Route path="/admin/store" element={<StoreProfile />} />
             <Route path="/delivery/profile" element={<DeliveryProfile />} />
             <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/delivery/login" element={<DeliveryLogin />} />
             <Route path="*" element={<div className="p-20 text-center font-bold">404 - Not Found</div>} />
           </Routes>
         </main>

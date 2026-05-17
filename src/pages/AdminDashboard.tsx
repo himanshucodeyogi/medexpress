@@ -1,8 +1,10 @@
-import { ShoppingCart, DollarSign, Truck, FileText, Clock, AlertTriangle, ChevronRight, MoreHorizontal, CheckCircle2, XCircle, BarChart3, Users, Package, FileCheck, TrendingUp, TrendingDown, Settings, LogOut } from 'lucide-react';
+import { ShoppingCart, DollarSign, Truck, FileText, Clock, AlertTriangle, ChevronRight, MoreHorizontal, CheckCircle2, XCircle, BarChart3, Users, Package, FileCheck, TrendingUp, TrendingDown, Settings, LogOut, Menu, X } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const AdminDashboard = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const data = [
     { name: 'Mon', sales: 4000 },
     { name: 'Tue', sales: 3500 },
@@ -54,14 +56,37 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="flex bg-[#f8fafc] min-h-screen">
+    <div className="flex bg-[#f8fafc] min-h-screen relative">
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+      
       {/* Sidebar */}
-      <aside className="w-72 bg-white border-r border-slate-100 p-8 hidden lg:flex flex-col gap-10">
+      <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-100 p-8 flex flex-col gap-10 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+        <div className="flex items-center justify-between lg:hidden mb-4">
+          <div className="flex items-center gap-2">
+            <div className="bg-primary p-2 rounded-lg">
+              <Package className="text-white w-6 h-6" />
+            </div>
+            <span className="text-xl font-bold text-slate-800">Admin</span>
+          </div>
+          <button 
+            onClick={() => setSidebarOpen(false)}
+            className="p-2 hover:bg-slate-100 rounded-full"
+          >
+            <X className="w-6 h-6 text-slate-600" />
+          </button>
+        </div>
         <div className="flex flex-col gap-2">
           {sidebarItems.map((item) => (
             <Link 
               key={item.label}
               to={item.path}
+              onClick={() => setSidebarOpen(false)}
               className={`flex items-center gap-4 px-4 py-3 rounded-xl font-bold text-sm transition-all ${item.active ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
             >
               {item.icon} {item.label}
@@ -71,19 +96,27 @@ const AdminDashboard = () => {
 
         <div className="mt-auto pt-8 border-t border-slate-100 flex flex-col gap-2">
           <button className="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-red-500 font-bold text-sm transition-all">
-            <LogOut className="w-5 h-5 rotate-180" /> Logout
+            <LogOut className="w-5 h-5" /> Logout
           </button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-          <div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Admin Dashboard</h1>
-            <p className="text-slate-500 font-medium">Real-time overview of MediFast pharmacy operations.</p>
+      <main className="flex-1 p-4 md:p-6 lg:p-10 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => setSidebarOpen(true)}
+              className="lg:hidden p-2 hover:bg-slate-100 rounded-full"
+            >
+              <Menu className="w-6 h-6 text-slate-600" />
+            </button>
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">Admin Dashboard</h1>
+              <p className="text-xs md:text-sm text-slate-500 font-medium">Real-time overview of pharmacy operations.</p>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             <button className="btn bg-white border border-slate-200 text-slate-700 px-6 font-bold shadow-sm hover:bg-slate-50">
               Export Report
             </button>
@@ -94,11 +127,11 @@ const AdminDashboard = () => {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-6 gap-6 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
           {stats.map((stat, idx) => (
-            <div key={idx} className="card p-5 group hover:border-primary/20 transition-all cursor-pointer">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div key={idx} className="card p-4 md:p-5 group hover:border-primary/20 transition-all cursor-pointer">
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-9 h-9 md:w-10 md:h-10 bg-slate-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                   {stat.icon}
                 </div>
                 <div className={`flex items-center gap-1 text-[10px] font-bold ${stat.trend === 'up' ? 'text-green-500' : 'text-red-500'}`}>
@@ -107,7 +140,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1 truncate">{stat.label}</p>
-              <p className="text-xl font-bold text-slate-900">{stat.value}</p>
+              <p className="text-lg md:text-xl font-bold text-slate-900">{stat.value}</p>
               <p className="text-[10px] text-slate-400 font-bold uppercase mt-2 tracking-tighter">This Month</p>
             </div>
           ))}
@@ -126,7 +159,7 @@ const AdminDashboard = () => {
                   Last 7 Days <ChevronRight className="w-3 h-3 rotate-90" />
                 </button>
               </div>
-              <div className="h-[300px] w-full">
+              <div className="h-[200px] md:h-[250px] lg:h-[300px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={data}>
                     <defs>
@@ -179,11 +212,11 @@ const AdminDashboard = () => {
                 <table className="w-full">
                   <thead>
                     <tr className="text-left border-b border-slate-50">
-                      <th className="pb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Order ID</th>
-                      <th className="pb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Customer</th>
-                      <th className="pb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total</th>
-                      <th className="pb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Status</th>
-                      <th className="pb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-right">Action</th>
+                      <th className="pb-3 text-[11px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Order ID</th>
+                      <th className="pb-3 text-[11px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Customer</th>
+                      <th className="pb-3 text-[11px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Total</th>
+                      <th className="pb-3 text-[11px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Status</th>
+                      <th className="pb-3 text-[11px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-50">

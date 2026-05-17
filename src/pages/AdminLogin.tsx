@@ -7,26 +7,6 @@ const AdminLogin = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
-      {/* Top Navbar */}
-      <nav className="bg-white border-b border-slate-100 py-4 px-6 md:px-12 flex items-center justify-between sticky top-0 z-50 shadow-sm">
-        <div className="flex items-center gap-8 flex-1">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-              <div className="w-4 h-4 text-white font-black italic">M</div>
-            </div>
-            <span className="text-xl font-black text-blue-600 tracking-tight">Med Express</span>
-          </Link>
-          <div className="hidden md:flex items-center bg-slate-50 border border-slate-100 rounded-full px-4 py-2 w-full max-w-md">
-            <Search className="w-4 h-4 text-slate-400 mr-2" />
-            <input type="text" placeholder="Search medicines, orders, or partners..." className="bg-transparent border-none text-sm focus:ring-0 w-full" />
-          </div>
-        </div>
-        <div className="flex items-center gap-6">
-          <button className="text-sm font-bold text-slate-600">Sign In</button>
-          <button className="bg-blue-500 text-white px-5 py-2 rounded-lg text-sm font-bold shadow-lg shadow-blue-500/20">Register</button>
-        </div>
-      </nav>
-
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-12">
         <div className="max-w-md w-full">
