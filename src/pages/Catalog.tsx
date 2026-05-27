@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const CatalogPage = () => {
+  const [showFilters, setShowFilters] = useState(false);
   const categories = [
     { name: 'Tablets', count: 12 },
     { name: 'Syrups', count: 8 },
@@ -27,17 +28,25 @@ const CatalogPage = () => {
   const [priceRange, setPriceRange] = useState(50);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-10">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-10">
       {/* Breadcrumbs */}
-      <div className="flex items-center gap-2 text-sm text-slate-500 mb-8">
+      <div className="flex items-center gap-2 text-sm text-slate-500 mb-6 md:mb-8">
         <Link to="/" className="hover:text-primary">Home</Link>
         <ChevronRight className="w-4 h-4" />
         <span className="font-bold text-slate-800">All Medicines</span>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-8 relative">
+        {/* Mobile Filter Toggle */}
+        <button 
+          onClick={() => setShowFilters(!showFilters)}
+          className="lg:hidden flex items-center justify-center gap-2 w-full py-3 bg-white border border-slate-200 rounded-xl font-bold text-slate-700 shadow-sm mb-4"
+        >
+          <Filter className="w-5 h-5" /> {showFilters ? 'Hide Filters' : 'Show Filters'}
+        </button>
+
         {/* Sidebar Filters */}
-        <aside className="w-full lg:w-64 flex-shrink-0">
+        <aside className={`${showFilters ? 'block' : 'hidden'} lg:block w-full lg:w-64 flex-shrink-0 animate-in fade-in slide-in-from-top-4 duration-300 lg:animate-none`}>
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
               <Filter className="w-5 h-5" /> Filters

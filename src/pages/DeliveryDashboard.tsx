@@ -1,7 +1,9 @@
-import { LayoutDashboard, Truck, DollarSign, Calendar, User, LogOut, ChevronRight, Navigation, Clock, CheckCircle2, TrendingUp, Map, MoreHorizontal, Bell, Search, ExternalLink, Package, MapPin } from 'lucide-react';
+import { LayoutDashboard, Truck, DollarSign, Calendar, User, LogOut, ChevronRight, Navigation, Clock, CheckCircle2, TrendingUp, Map, MoreHorizontal, ExternalLink, Package, MapPin, X, Menu } from 'lucide-react';
+import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 const DeliveryDashboard = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const earningsData = [
     { name: 'Mon', amount: 120 },
     { name: 'Tue', amount: 145 },
@@ -25,20 +27,45 @@ const DeliveryDashboard = () => {
     { id: '#MF-9104', status: 'New Assignment', pickup: 'Family Health Drugs', pickupAddr: '303 Oak St, North Park', dropoff: 'Elena Rodriguez', dropoffAddr: '782 Sunset Blvd, North Park', items: 'Paracetamol Syrup (Children), Thermometer' },
   ];
 
+  const sidebarItems = [
+    { icon: <LayoutDashboard className="w-5 h-5" />, label: 'Dashboard', active: true },
+    { icon: <Truck className="w-5 h-5" />, label: 'Active Deliveries', active: false },
+    { icon: <DollarSign className="w-5 h-5" />, label: 'Earnings', active: false },
+    { icon: <Calendar className="w-5 h-5" />, label: 'Schedule', active: false },
+    { icon: <User className="w-5 h-5" />, label: 'Profile', active: false },
+  ];
+
   return (
-    <div className="flex bg-[#f8fafc] min-h-screen">
+    <div className="flex bg-[#f8fafc] min-h-screen relative">
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+
       {/* Sidebar */}
-      <aside className="w-72 bg-white border-r border-slate-100 p-8 hidden lg:flex flex-col gap-10">
+      <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-100 p-8 flex flex-col gap-10 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+        <div className="flex items-center justify-between lg:hidden mb-4">
+          <div className="flex items-center gap-2">
+            <div className="bg-primary p-2 rounded-lg">
+              <Truck className="text-white w-6 h-6" />
+            </div>
+            <span className="text-xl font-bold text-slate-800">Delivery</span>
+          </div>
+          <button 
+            onClick={() => setSidebarOpen(false)}
+            className="p-2 hover:bg-slate-100 rounded-full"
+          >
+            <X className="w-6 h-6 text-slate-600" />
+          </button>
+        </div>
         <div className="flex flex-col gap-2">
-          {[
-            { icon: <LayoutDashboard className="w-5 h-5" />, label: 'Dashboard', active: true },
-            { icon: <Truck className="w-5 h-5" />, label: 'Active Deliveries', active: false },
-            { icon: <DollarSign className="w-5 h-5" />, label: 'Earnings', active: false },
-            { icon: <Calendar className="w-5 h-5" />, label: 'Schedule', active: false },
-            { icon: <User className="w-5 h-5" />, label: 'Profile', active: false },
-          ].map((item) => (
+          {sidebarItems.map((item) => (
             <button 
               key={item.label}
+              onClick={() => setSidebarOpen(false)}
               className={`flex items-center gap-4 px-4 py-3 rounded-xl font-bold text-sm transition-all ${item.active ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
             >
               {item.icon} {item.label}
@@ -47,41 +74,49 @@ const DeliveryDashboard = () => {
         </div>
 
         <div className="mt-auto pt-8 border-t border-slate-100 flex flex-col gap-2">
-          <button className="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-red-500 font-bold text-sm transition-all">
+          <button className="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-red-500 font-bold text-sm transition-all text-left w-full">
             <LogOut className="w-5 h-5" /> Logout
           </button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto">
+      <main className="flex-1 p-4 md:p-6 lg:p-10 max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-10">
-          <div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Delivery Dashboard</h1>
-            <p className="text-slate-500 font-medium">Welcome back, Alex. You have 3 active tasks today.</p>
-          </div>
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3 px-4 py-2 bg-blue-50/50 rounded-xl border border-blue-100">
-              <Clock className="w-4 h-4 text-primary" />
-              <span className="text-xs font-bold text-slate-700 uppercase tracking-widest">Shift: 08:00 AM - 04:00 PM</span>
+            <button 
+              onClick={() => setSidebarOpen(true)}
+              className="lg:hidden p-2 hover:bg-slate-100 rounded-full"
+            >
+              <Menu className="w-6 h-6 text-slate-600" />
+            </button>
+            <div>
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 mb-2">Delivery Dashboard</h1>
+              <p className="text-sm md:text-base text-slate-500 font-medium">Welcome back, Alex. You have 3 active tasks today.</p>
             </div>
-            <button className="btn btn-primary px-8 font-bold">Go Offline</button>
+          </div>
+          <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex items-center gap-3 px-4 py-3 md:py-2 bg-blue-50/50 rounded-xl border border-blue-100 w-full md:w-auto justify-center md:justify-start">
+              <Clock className="w-4 h-4 text-primary" />
+              <span className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest">Shift: 08:00 AM - 04:00 PM</span>
+            </div>
+            <button className="btn btn-primary px-8 py-3 md:py-2 w-full md:w-auto font-bold text-center">Go Offline</button>
           </div>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
           {stats.map((stat, idx) => (
-            <div key={idx} className="card flex items-center gap-6 group hover:border-primary/20 transition-all cursor-pointer">
-              <div className={`w-14 h-14 ${stat.bg} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform`}>
+            <div key={idx} className="card p-4 md:p-6 flex flex-col sm:flex-row items-center gap-4 md:gap-6 group hover:border-primary/20 transition-all cursor-pointer text-center sm:text-left">
+              <div className={`w-12 h-12 md:w-14 md:h-14 ${stat.bg} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0`}>
                 {stat.icon}
               </div>
-              <div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">{stat.label}</p>
-                <div className="flex items-baseline gap-2">
-                  <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
-                  <p className={`text-[10px] font-bold uppercase tracking-tighter ${stat.change.includes('+') ? 'text-green-500' : 'text-blue-500'}`}>{stat.change}</p>
+              <div className="min-w-0">
+                <p className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1 truncate">{stat.label}</p>
+                <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 md:gap-2">
+                  <p className="text-xl md:text-2xl font-bold text-slate-900">{stat.value}</p>
+                  <p className={`text-[10px] font-bold uppercase tracking-tighter truncate ${stat.change.includes('+') ? 'text-green-500' : 'text-blue-500'}`}>{stat.change}</p>
                 </div>
               </div>
             </div>
@@ -102,7 +137,7 @@ const DeliveryDashboard = () => {
 
             <div className="flex flex-col gap-6">
               {deliveries.map((delivery) => (
-                <div key={delivery.id} className="card p-8 hover:shadow-card transition-all group">
+                <div key={delivery.id} className="card p-6 md:p-8 hover:shadow-card transition-all group">
                   <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center gap-4">
                       <h4 className="text-lg font-bold text-slate-900">{delivery.id}</h4>
@@ -126,7 +161,7 @@ const DeliveryDashboard = () => {
                       </div>
                       <div>
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Pickup</p>
-                        <h5 className="text-sm font-bold text-slate-900 mb-0.5">{delivery.pickup}</h5>
+                        <h5 className="text-sm font-bold text-slate-900 mb-0.5 leading-tight">{delivery.pickup}</h5>
                         <p className="text-xs text-slate-500 font-medium">{delivery.pickupAddr}</p>
                       </div>
                     </div>
@@ -137,26 +172,26 @@ const DeliveryDashboard = () => {
                       </div>
                       <div>
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Dropoff</p>
-                        <h5 className="text-sm font-bold text-slate-900 mb-0.5">{delivery.dropoff}</h5>
+                        <h5 className="text-sm font-bold text-slate-900 mb-0.5 leading-tight">{delivery.dropoff}</h5>
                         <p className="text-xs text-slate-500 font-medium">{delivery.dropoffAddr}</p>
                       </div>
                     </div>
                   </div>
 
                   <div className="pt-6 border-t border-slate-50 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="flex items-center gap-3">
-                      <Package className="w-5 h-5 text-slate-400" />
-                      <p className="text-xs text-slate-500 font-bold">{delivery.items}</p>
+                    <div className="flex items-center gap-3 w-full md:w-auto">
+                      <Package className="w-5 h-5 text-slate-400 flex-shrink-0" />
+                      <p className="text-xs text-slate-500 font-bold truncate">{delivery.items}</p>
                     </div>
                     <div className="flex items-center gap-3 w-full md:w-auto">
-                      <button className="flex-1 btn bg-white border-2 border-slate-100 text-slate-700 px-8 text-sm py-2.5">
+                      <button className="flex-1 md:flex-none btn bg-white border-2 border-slate-100 text-slate-700 px-6 lg:px-8 text-sm py-2.5 font-bold flex items-center justify-center gap-2">
                         <Navigation className="w-4 h-4" /> Navigate
                       </button>
                       {delivery.status === 'Picked Up' && (
-                        <button className="flex-1 btn btn-primary px-8 text-sm py-2.5">Out for Delivery</button>
+                        <button className="flex-1 md:flex-none btn btn-primary px-6 lg:px-8 text-sm py-2.5 font-bold">Out for Delivery</button>
                       )}
                       {delivery.status === 'New Assignment' && (
-                        <button className="flex-1 btn btn-primary px-8 text-sm py-2.5">Mark Picked</button>
+                        <button className="flex-1 md:flex-none btn btn-primary px-6 lg:px-8 text-sm py-2.5 font-bold">Mark Picked</button>
                       )}
                     </div>
                   </div>
@@ -244,7 +279,7 @@ const DeliveryDashboard = () => {
                       itemStyle={{ fontWeight: 'bold', color: '#3b82f6' }}
                     />
                     <Bar dataKey="amount" radius={[4, 4, 4, 4]} barSize={20}>
-                      {earningsData.map((entry, index) => (
+                      {earningsData.map((_entry, index) => (
                         <Cell key={`cell-${index}`} fill={index === 4 ? '#3b82f6' : '#bfdbfe'} />
                       ))}
                     </Bar>

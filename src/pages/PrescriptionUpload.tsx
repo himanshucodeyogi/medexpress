@@ -1,12 +1,13 @@
 import { Upload, CheckCircle2, FileText, ShieldCheck, Clock, ArrowRight, User, Phone, MessageSquare } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useRef, type ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const PrescriptionUpload = () => {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const steps = [
     { id: 1, label: 'Upload' },
@@ -14,7 +15,18 @@ const PrescriptionUpload = () => {
     { id: 3, label: 'Result' },
   ];
 
-  const handleSubmit = () => {
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     setIsSubmitting(true);
     // Simulate API call
     setTimeout(() => {
@@ -31,101 +43,123 @@ const PrescriptionUpload = () => {
       </div>
 
       {/* Stepper */}
-      <div className="flex items-center justify-between mb-16 relative">
-        <div className="absolute top-1/2 left-0 w-full h-0.5 bg-slate-100 -translate-y-1/2 -z-10"></div>
+      <div className="flex items-center justify-between mb-16 relative overflow-x-auto pb-4 md:pb-0">
+        <div className="absolute top-1/2 left-0 w-full h-0.5 bg-slate-100 -translate-y-1/2 -z-10 min-w-[300px]"></div>
         {steps.map((step) => (
-          <div key={step.id} className="flex flex-col items-center gap-3 bg-white px-4">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-all ${
+          <div key={step.id} className="flex flex-col items-center gap-3 bg-white px-4 shrink-0">
+            <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-bold text-sm md:text-base transition-all ${
               currentStep === step.id ? 'bg-primary text-white shadow-lg shadow-primary/20' : 
               currentStep > step.id ? 'bg-green-500 text-white' : 'bg-slate-100 text-slate-400'
             }`}>
-              {currentStep > step.id ? <CheckCircle2 className="w-5 h-5" /> : step.id}
+              {currentStep > step.id ? <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6" /> : step.id}
             </div>
-            <span className={`text-xs font-bold uppercase tracking-widest ${currentStep === step.id ? 'text-primary' : 'text-slate-400'}`}>
+            <span className={`text-[10px] md:text-xs font-bold uppercase tracking-widest ${currentStep === step.id ? 'text-primary' : 'text-slate-400'}`}>
               {step.label}
             </span>
           </div>
         ))}
       </div>
 
-      <div className="card p-8 md:p-12 mb-12">
+      <div className="card p-6 md:p-12 mb-12">
         <div className="mb-10">
-          <h2 className="text-xl font-bold text-slate-900 mb-2">Upload your Medical Document</h2>
-          <p className="text-sm text-slate-500 font-medium leading-relaxed">Ensure all details like doctor's signature and date are clearly visible.</p>
+          <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-2">Upload your Medical Document</h2>
+          <p className="text-sm md:text-base text-slate-500 font-medium leading-relaxed">Ensure all details like doctor's signature and date are clearly visible.</p>
         </div>
 
-        {/* Upload Box */}
-        <div className="border-2 border-dashed border-slate-200 rounded-[2rem] p-12 text-center mb-10 group hover:border-primary/30 transition-all cursor-pointer bg-slate-50/50">
-          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm text-primary group-hover:scale-110 transition-transform">
-            <Upload className="w-8 h-8" />
-          </div>
-          <h3 className="text-lg font-bold text-slate-900 mb-2">Click or drag to upload</h3>
-          <p className="text-sm text-slate-400 mb-6 font-medium">PDF, JPG, PNG (Max 10MB)</p>
-          <button className="btn bg-white border-2 border-slate-100 text-slate-700 hover:border-slate-200 px-8 py-2.5 shadow-sm text-sm font-bold">
-            Select Prescription
-          </button>
-        </div>
-
-        {/* Patient Information */}
-        <div className="space-y-8">
-          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">Patient Information</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-3">
-              <label className="text-sm font-bold text-slate-700">Patient Name</label>
-              <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-                <input 
-                  type="text" 
-                  placeholder="Full name on prescription" 
-                  className="input pl-12 py-3.5 bg-slate-50 border-slate-100"
-                />
-              </div>
-            </div>
-            <div className="space-y-3">
-              <label className="text-sm font-bold text-slate-700">Contact Number</label>
-              <div className="relative">
-                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-                <input 
-                  type="tel" 
-                  placeholder="+1 (555) 000-0000" 
-                  className="input pl-12 py-3.5 bg-slate-50 border-slate-100"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            <label className="text-sm font-bold text-slate-700">Notes for Pharmacist (Optional)</label>
-            <div className="relative">
-              <MessageSquare className="absolute left-4 top-4 text-slate-400 w-5 h-5" />
-              <textarea 
-                rows={4}
-                placeholder="E.g., I need a specific brand, or allergies to mention..." 
-                className="input pl-12 py-4 bg-slate-50 border-slate-100 resize-none"
-              ></textarea>
-            </div>
-          </div>
-
-          <div className="p-4 bg-blue-50/50 border border-blue-100 rounded-2xl flex gap-4">
-            <ShieldCheck className="w-5 h-5 text-primary flex-shrink-0" />
-            <p className="text-xs text-slate-600 leading-relaxed font-medium">
-              Your data is encrypted and handled only by certified healthcare professionals according to HIPAA standards.
-            </p>
-          </div>
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-10 mt-10 border-t border-slate-100">
-          <button className="text-sm font-bold text-slate-400 hover:text-slate-600 uppercase tracking-widest transition-colors">
-            Cancel Upload
-          </button>
-          <button 
-            onClick={handleSubmit}
-            disabled={isSubmitting}
-            className="btn btn-primary px-10 py-4 font-bold shadow-xl shadow-primary/20 disabled:opacity-50"
+        <form onSubmit={handleSubmit}>
+          {/* Upload Box */}
+          <input 
+            type="file" 
+            ref={fileInputRef} 
+            onChange={handleFileChange} 
+            className="hidden" 
+            accept=".pdf,.jpg,.png"
+          />
+          <div 
+            onClick={handleUploadClick}
+            className="border-2 border-dashed border-slate-200 rounded-[2rem] p-8 md:p-16 text-center mb-10 group hover:border-primary/30 transition-all cursor-pointer bg-slate-50/50"
           >
-            {isSubmitting ? 'Submitting...' : 'Submit for Review'} <ArrowRight className="w-5 h-5" />
-          </button>
-        </div>
+            <div className="w-16 h-16 md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm text-primary group-hover:scale-110 transition-transform">
+              <Upload className="w-8 h-8 md:w-10 md:h-10" />
+            </div>
+            <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-2">
+              {selectedFile ? selectedFile.name : 'Click or drag to upload'}
+            </h3>
+            <p className="text-sm md:text-base text-slate-400 mb-6 font-medium">PDF, JPG, PNG (Max 10MB)</p>
+            <button 
+              type="button"
+              className="btn bg-white border-2 border-slate-100 text-slate-700 hover:border-slate-200 px-8 py-3 shadow-sm text-sm md:text-base font-bold"
+            >
+              Select Prescription
+            </button>
+          </div>
+
+          {/* Patient Information */}
+          <div className="space-y-8">
+            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">Patient Information</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-3">
+                <label className="text-sm font-bold text-slate-700">Patient Name</label>
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+                  <input 
+                    type="text" 
+                    placeholder="Full name on prescription" 
+                    className="input pl-12 py-3.5 md:py-4 bg-slate-50 border-slate-100"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="space-y-3">
+                <label className="text-sm font-bold text-slate-700">Contact Number</label>
+                <div className="relative">
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+                  <input 
+                    type="tel" 
+                    placeholder="+1 (555) 000-0000" 
+                    className="input pl-12 py-3.5 md:py-4 bg-slate-50 border-slate-100"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <label className="text-sm font-bold text-slate-700">Notes for Pharmacist (Optional)</label>
+              <div className="relative">
+                <MessageSquare className="absolute left-4 top-4 text-slate-400 w-5 h-5" />
+                <textarea 
+                  rows={4}
+                  placeholder="E.g., I need a specific brand, or allergies to mention..." 
+                  className="input pl-12 py-4 bg-slate-50 border-slate-100 resize-none"
+                ></textarea>
+              </div>
+            </div>
+
+            <div className="p-4 md:p-6 bg-blue-50/50 border border-blue-100 rounded-2xl flex gap-4">
+              <ShieldCheck className="w-6 h-6 text-primary flex-shrink-0" />
+              <p className="text-sm text-slate-600 leading-relaxed font-medium">
+                Your data is encrypted and handled only by certified healthcare professionals according to HIPAA standards.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-10 mt-10 border-t border-slate-100">
+            <button 
+              type="button"
+              className="text-sm font-bold text-slate-400 hover:text-slate-600 uppercase tracking-widest transition-colors w-full sm:w-auto"
+            >
+              Cancel Upload
+            </button>
+            <button 
+              type="submit"
+              disabled={isSubmitting}
+              className="btn btn-primary w-full sm:w-auto px-10 py-4 font-bold shadow-xl shadow-primary/20 disabled:opacity-50 flex items-center justify-center gap-2"
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit for Review'} <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
+        </form>
       </div>
 
       {/* Trust Badges Footer */}

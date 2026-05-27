@@ -1,4 +1,4 @@
-import { ChevronLeft, Smartphone, QrCode, ShieldCheck, CheckCircle2, Clock, Info, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Smartphone, QrCode, ShieldCheck, CheckCircle2, Clock, Info, ArrowLeft } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -37,10 +37,10 @@ const PaymentScan = () => {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 md:px-8 py-12">
+      <div className="max-w-5xl mx-auto px-4 md:px-8 py-8 lg:py-16">
         <div className="text-center mb-12">
-          <h1 className="text-3xl font-black text-slate-900 mb-4">Complete Your Payment</h1>
-          <p className="text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-4">Complete Your Payment</h1>
+          <p className="text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed text-sm md:text-base px-4">
             Please scan the QR code to finish your order. Once the payment is confirmed, your medicine delivery will be initiated immediately.
           </p>
         </div>
@@ -48,61 +48,61 @@ const PaymentScan = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Scan Card */}
           <div className="lg:col-span-2 space-y-6">
-            <div className="card p-10 bg-white border border-slate-200 rounded-[32px] shadow-xl shadow-slate-200/50 text-center">
-              <h2 className="text-xl font-black text-slate-900 mb-2">Scan to Securely Pay</h2>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-10">Use any UPI or Banking app to scan the QR code below</p>
+            <div className="card p-6 md:p-10 bg-white border border-slate-200 rounded-[32px] shadow-xl shadow-slate-200/50 text-center">
+              <h2 className="text-xl md:text-2xl font-black text-slate-900 mb-2">Scan to Securely Pay</h2>
+              <p className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest mb-10">Use any UPI or Banking app to scan the QR code below</p>
               
-              <div className="relative inline-block p-8 bg-slate-50 rounded-[40px] border border-slate-100 shadow-inner mb-10">
+              <div className="relative inline-block p-6 md:p-8 bg-slate-50 rounded-[40px] border border-slate-100 shadow-inner mb-10">
                 <div className="relative">
                   <img 
                     src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" 
                     alt="QR Scan Illustration" 
-                    className="w-64 h-64 object-cover rounded-3xl opacity-80"
+                    className="w-48 h-48 md:w-64 md:h-64 object-cover rounded-3xl opacity-80"
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="p-4 bg-white rounded-2xl shadow-2xl">
-                      <QrCode className="w-24 h-24 text-slate-900" />
+                    <div className="p-3 md:p-4 bg-white rounded-2xl shadow-2xl">
+                      <QrCode className="w-16 h-16 md:w-24 md:h-24 text-slate-900" />
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-4 max-w-lg mx-auto">
                 <div className="space-y-2">
                   <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mx-auto text-blue-500">
                     <Smartphone className="w-5 h-5" />
                   </div>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Step 1</p>
-                  <p className="text-[10px] font-black text-slate-600">Open your preferred payment app</p>
+                  <p className="text-[10px] md:text-[11px] font-black text-slate-600">Open your preferred payment app</p>
                 </div>
                 <div className="space-y-2">
                   <div className="w-10 h-10 bg-emerald-50 rounded-full flex items-center justify-center mx-auto text-emerald-500">
                     <QrCode className="w-5 h-5" />
                   </div>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Step 2</p>
-                  <p className="text-[10px] font-black text-slate-600">Scan the QR and verify amount</p>
+                  <p className="text-[10px] md:text-[11px] font-black text-slate-600">Scan the QR and verify amount</p>
                 </div>
                 <div className="space-y-2">
                   <div className="w-10 h-10 bg-cyan-50 rounded-full flex items-center justify-center mx-auto text-cyan-500">
                     <CheckCircle2 className="w-5 h-5" />
                   </div>
                   <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Step 3</p>
-                  <p className="text-[10px] font-black text-slate-600">Complete payment and wait</p>
+                  <p className="text-[10px] md:text-[11px] font-black text-slate-600">Complete payment and wait</p>
                 </div>
               </div>
 
               <div className="mt-12 p-4 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-center gap-3">
-                <Info className="w-4 h-4 text-slate-400" />
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">This payment link will expire in {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')} minutes for your security.</p>
+                <Info className="w-4 h-4 text-slate-400 shrink-0" />
+                <p className="text-[10px] md:text-[11px] text-slate-500 font-bold uppercase tracking-widest">This payment link will expire in {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')} minutes for your security.</p>
               </div>
             </div>
 
-            <div className="card p-6 bg-white border border-slate-100 rounded-2xl flex items-center justify-between shadow-sm">
+            <div className="card p-6 bg-white border border-slate-100 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-6 h-6 text-blue-500" />
                 </div>
-                <div>
+                <div className="text-center md:text-left">
                   <h3 className="text-sm font-black text-slate-900">Secure 256-bit Encryption</h3>
                   <p className="text-xs text-slate-400 font-medium leading-relaxed">Your transaction is protected by bank-grade security protocols.</p>
                 </div>

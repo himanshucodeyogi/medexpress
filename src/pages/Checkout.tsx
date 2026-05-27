@@ -23,76 +23,83 @@ const CheckoutPage = () => {
         </div>
 
         {/* Stepper */}
-        <div className="flex items-center justify-center mb-12 max-w-2xl mx-auto">
+        <div className="flex items-center justify-center mb-12 max-w-2xl mx-auto px-2">
           {steps.map((s, idx) => (
             <div key={s.id} className="flex items-center flex-1 last:flex-none">
               <div className="flex flex-col items-center relative">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all border-2 ${step >= s.id ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20' : 'bg-white border-slate-200 text-slate-400'}`}>
-                  {step > s.id ? <CheckCircle2 className="w-6 h-6" /> : s.id}
+                <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-sm md:text-base font-bold transition-all border-2 ${step >= s.id ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20' : 'bg-white border-slate-200 text-slate-400'}`}>
+                  {step > s.id ? <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6" /> : s.id}
                 </div>
-                <span className={`absolute -bottom-7 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap ${step >= s.id ? 'text-primary' : 'text-slate-400'}`}>
+                <span className={`absolute -bottom-6 md:-bottom-7 text-[8px] md:text-[10px] font-bold uppercase tracking-widest whitespace-nowrap ${step >= s.id ? 'text-primary' : 'text-slate-400'}`}>
                   {s.label}
                 </span>
               </div>
               {idx < steps.length - 1 && (
-                <div className={`h-1 flex-1 mx-4 rounded-full transition-all ${step > s.id ? 'bg-primary' : 'bg-slate-200'}`}></div>
+                <div className={`h-1 flex-1 mx-2 md:mx-4 rounded-full transition-all ${step > s.id ? 'bg-primary' : 'bg-slate-200'}`}></div>
               )}
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10 mt-16">
           <div className="lg:col-span-2 space-y-8">
             {step === 1 && (
-              <div className="card p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <form 
+                onSubmit={(e) => { e.preventDefault(); setStep(2); }}
+                className="card p-6 md:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500"
+              >
                 <h2 className="text-xl font-bold text-slate-900 mb-8 flex items-center gap-3">
                   <MapPin className="w-6 h-6 text-primary" /> Shipping Information
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">First Name</label>
-                    <input type="text" placeholder="John" className="input bg-slate-50 border-slate-100" />
+                    <label htmlFor="first-name" className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">First Name</label>
+                    <input id="first-name" type="text" required placeholder="John" className="input bg-slate-50 border-slate-100 py-3 md:py-2" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Last Name</label>
-                    <input type="text" placeholder="Doe" className="input bg-slate-50 border-slate-100" />
+                    <label htmlFor="last-name" className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Last Name</label>
+                    <input id="last-name" type="text" required placeholder="Doe" className="input bg-slate-50 border-slate-100 py-3 md:py-2" />
                   </div>
                   <div className="md:col-span-2 space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Street Address</label>
-                    <input type="text" placeholder="123 Medical Way, Health District" className="input bg-slate-50 border-slate-100" />
+                    <label htmlFor="address" className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Street Address</label>
+                    <input id="address" type="text" required placeholder="123 Medical Way, Health District" className="input bg-slate-50 border-slate-100 py-3 md:py-2" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">City</label>
-                    <input type="text" placeholder="New York" className="input bg-slate-50 border-slate-100" />
+                    <label htmlFor="city" className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">City</label>
+                    <input id="city" type="text" required placeholder="New York" className="input bg-slate-50 border-slate-100 py-3 md:py-2" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Postal Code</label>
-                    <input type="text" placeholder="10001" className="input bg-slate-50 border-slate-100" />
+                    <label htmlFor="postal-code" className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Postal Code</label>
+                    <input id="postal-code" type="text" required placeholder="10001" className="input bg-slate-50 border-slate-100 py-3 md:py-2" />
                   </div>
                   <div className="md:col-span-2 space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Phone Number</label>
-                    <input type="tel" placeholder="+1 (555) 000-0000" className="input bg-slate-50 border-slate-100" />
+                    <label htmlFor="phone" className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Phone Number</label>
+                    <input id="phone" type="tel" required placeholder="+1 (555) 000-0000" className="input bg-slate-50 border-slate-100 py-3 md:py-2" />
                   </div>
                 </div>
                 <button 
-                  onClick={() => setStep(2)}
-                  className="btn btn-primary w-full py-4 mt-10 text-lg group"
+                  type="submit"
+                  className="btn btn-primary w-full py-4 mt-10 text-lg group font-bold"
                 >
                   Continue to Payment <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform ml-2" />
                 </button>
-              </div>
+              </form>
             )}
 
             {step === 2 && (
-              <div className="card p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <form 
+                onSubmit={(e) => { e.preventDefault(); setStep(3); }}
+                className="card p-6 md:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500"
+              >
                 <h2 className="text-xl font-bold text-slate-900 mb-8 flex items-center gap-3">
                   <CreditCard className="w-6 h-6 text-primary" /> Payment Method
                 </h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                   <button 
+                    type="button"
                     onClick={() => setPaymentMethod('card')}
-                    className={`p-6 rounded-2xl border-2 text-left transition-all ${paymentMethod === 'card' ? 'border-primary bg-primary/5 shadow-md' : 'border-slate-100 bg-white hover:border-slate-200'}`}
+                    className={`p-5 md:p-6 rounded-2xl border-2 text-left transition-all ${paymentMethod === 'card' ? 'border-primary bg-primary/5 shadow-md' : 'border-slate-100 bg-white hover:border-slate-200'}`}
                   >
                     <div className="flex justify-between items-center mb-4">
                       <CreditCard className={`w-6 h-6 ${paymentMethod === 'card' ? 'text-primary' : 'text-slate-400'}`} />
@@ -102,8 +109,9 @@ const CheckoutPage = () => {
                     <p className="text-xs text-slate-500 mt-1">Visa, Mastercard, AMEX</p>
                   </button>
                   <button 
+                    type="button"
                     onClick={() => setPaymentMethod('cod')}
-                    className={`p-6 rounded-2xl border-2 text-left transition-all ${paymentMethod === 'cod' ? 'border-primary bg-primary/5 shadow-md' : 'border-slate-100 bg-white hover:border-slate-200'}`}
+                    className={`p-5 md:p-6 rounded-2xl border-2 text-left transition-all ${paymentMethod === 'cod' ? 'border-primary bg-primary/5 shadow-md' : 'border-slate-100 bg-white hover:border-slate-200'}`}
                   >
                     <div className="flex justify-between items-center mb-4">
                       <Truck className={`w-6 h-6 ${paymentMethod === 'cod' ? 'text-primary' : 'text-slate-400'}`} />
@@ -117,76 +125,78 @@ const CheckoutPage = () => {
                 {paymentMethod === 'card' && (
                   <div className="space-y-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Card Number</label>
-                      <input type="text" placeholder="0000 0000 0000 0000" className="input bg-slate-50 border-slate-100" />
+                      <label htmlFor="card-number" className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Card Number</label>
+                      <input id="card-number" type="text" required placeholder="0000 0000 0000 0000" className="input bg-slate-50 border-slate-100 py-3 md:py-2" />
                     </div>
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-2 gap-4 md:gap-6">
                       <div className="space-y-2">
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Expiry Date</label>
-                        <input type="text" placeholder="MM/YY" className="input bg-slate-50 border-slate-100" />
+                        <label htmlFor="expiry" className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Expiry Date</label>
+                        <input id="expiry" type="text" required placeholder="MM/YY" className="input bg-slate-50 border-slate-100 py-3 md:py-2" />
                       </div>
                       <div className="space-y-2">
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">CVV</label>
-                        <input type="text" placeholder="123" className="input bg-slate-50 border-slate-100" />
+                        <label htmlFor="cvv" className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">CVV</label>
+                        <input id="cvv" type="text" required placeholder="123" className="input bg-slate-50 border-slate-100 py-3 md:py-2" />
                       </div>
                     </div>
                   </div>
                 )}
 
-                <div className="flex gap-4 mt-10">
-                  <button onClick={() => setStep(1)} className="btn bg-white border-2 border-slate-100 text-slate-600 px-8">Back</button>
+                <div className="flex flex-col sm:flex-row gap-4 mt-10">
+                  <button type="button" onClick={() => setStep(1)} className="btn bg-white border-2 border-slate-100 text-slate-600 px-8 py-3 font-bold order-2 sm:order-1">Back</button>
                   <button 
-                    onClick={() => setStep(3)}
-                    className="btn btn-primary flex-1 py-4 text-lg group"
+                    type="submit"
+                    className="btn btn-primary flex-1 py-4 text-lg group font-bold order-1 sm:order-2"
                   >
                     Review Order <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform ml-2" />
                   </button>
                 </div>
-              </div>
+              </form>
             )}
 
             {step === 3 && (
-              <div className="card p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="card p-6 md:p-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <h2 className="text-xl font-bold text-slate-900 mb-8 flex items-center gap-3">
                   <ShieldCheck className="w-6 h-6 text-primary" /> Review & Confirm
                 </h2>
                 
                 <div className="space-y-6">
-                  <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                  <div className="p-4 md:p-6 bg-slate-50 rounded-2xl border border-slate-100">
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className="font-bold text-slate-900 uppercase text-xs tracking-widest">Shipping To</h3>
+                      <h3 className="font-bold text-slate-900 uppercase text-[10px] md:text-xs tracking-widest">Shipping To</h3>
                       <button onClick={() => setStep(1)} className="text-xs font-bold text-primary hover:underline">Edit</button>
                     </div>
-                    <p className="text-slate-600">John Doe</p>
-                    <p className="text-slate-600">123 Medical Way, Health District</p>
-                    <p className="text-slate-600">New York, 10001</p>
-                    <p className="text-slate-600">+1 (555) 000-0000</p>
+                    <div className="text-sm md:text-base text-slate-600 space-y-1">
+                      <p>John Doe</p>
+                      <p>123 Medical Way, Health District</p>
+                      <p>New York, 10001</p>
+                      <p>+1 (555) 000-0000</p>
+                    </div>
                   </div>
 
-                  <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                  <div className="p-4 md:p-6 bg-slate-50 rounded-2xl border border-slate-100">
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className="font-bold text-slate-900 uppercase text-xs tracking-widest">Payment Method</h3>
+                      <h3 className="font-bold text-slate-900 uppercase text-[10px] md:text-xs tracking-widest">Payment Method</h3>
                       <button onClick={() => setStep(2)} className="text-xs font-bold text-primary hover:underline">Edit</button>
                     </div>
                     <div className="flex items-center gap-3">
                       {paymentMethod === 'card' ? (
                         <>
                           <CreditCard className="w-5 h-5 text-slate-400" />
-                          <p className="text-slate-600 font-medium">Visa ending in 4242</p>
+                          <p className="text-sm md:text-base text-slate-600 font-medium">Visa ending in 4242</p>
                         </>
                       ) : (
                         <>
                           <Truck className="w-5 h-5 text-slate-400" />
-                          <p className="text-slate-600 font-medium">Cash on Delivery</p>
+                          <p className="text-sm md:text-base text-slate-600 font-medium">Cash on Delivery</p>
                         </>
                       )}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex gap-4 mt-10">
-                  <button onClick={() => setStep(2)} className="btn bg-white border-2 border-slate-100 text-slate-600 px-8">Back</button>
-                  <Link to="/payment-scan" className="btn btn-primary flex-1 py-4 text-lg">
+                <div className="flex flex-col sm:flex-row gap-4 mt-10">
+                  <button onClick={() => setStep(2)} className="btn bg-white border-2 border-slate-100 text-slate-600 px-8 py-3 font-bold order-2 sm:order-1">Back</button>
+                  <Link to="/payment-scan" className="btn btn-primary flex-1 py-4 text-lg font-bold text-center order-1 sm:order-2">
                     Proceed to Payment Scan
                   </Link>
                 </div>

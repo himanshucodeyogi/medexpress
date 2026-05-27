@@ -1,4 +1,4 @@
-import { Pill, Mail, Globe, MessageCircle, Camera, PlayCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { Pill, Globe, MessageCircle, Camera, PlayCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 

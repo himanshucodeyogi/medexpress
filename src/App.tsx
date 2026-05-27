@@ -34,9 +34,9 @@ import DeliveryLogin from './pages/DeliveryLogin';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-slate-50 selection:bg-primary/10 selection:text-primary">
+      <div className="min-h-screen flex flex-col bg-slate-50 selection:bg-primary/10 selection:text-primary overflow-x-hidden max-w-full">
         <Navbar />
-        <main className="flex-grow">
+        <main className="flex-grow max-w-full">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/catalog" element={<CatalogPage />} />

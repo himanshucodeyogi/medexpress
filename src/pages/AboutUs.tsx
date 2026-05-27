@@ -1,26 +1,26 @@
-import { Pill, Users, Target, Award, ShieldCheck, HeartPulse, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Pill, Target, Award, HeartPulse, CheckCircle2, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const AboutUs = () => {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative py-20 bg-slate-50 overflow-hidden">
+      <section className="relative py-20 lg:py-32 bg-slate-50 overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 rounded-l-[100px] hidden lg:block"></div>
         <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full text-primary text-[10px] font-bold uppercase tracking-widest mb-6">
               <Pill className="w-3 h-3" /> Our Story
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-8 leading-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-8 leading-tight">
               Revolutionizing <span className="text-primary">Healthcare</span> Access for Everyone.
             </h1>
-            <p className="text-xl text-slate-600 mb-10 leading-relaxed">
+            <p className="text-xl md:text-2xl text-slate-600 mb-10 leading-relaxed">
               MedExpress started with a simple mission: to make healthcare more accessible, affordable, and transparent through technology. We believe that getting your medicine should be as easy as ordering a meal.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Link to="/catalog" className="btn btn-primary px-8 py-4 text-lg font-bold">Shop Medicines</Link>
-              <Link to="/contact" className="btn bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-8 py-4 text-lg font-bold">Contact Us</Link>
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+              <Link to="/catalog" className="btn btn-primary px-8 py-4 text-lg font-bold w-full sm:w-auto text-center">Shop Medicines</Link>
+              <Link to="/contact" className="btn bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-8 py-4 text-lg font-bold w-full sm:w-auto text-center">Contact Us</Link>
             </div>
           </div>
         </div>
@@ -29,21 +29,21 @@ const AboutUs = () => {
       {/* Stats Section */}
       <section className="py-20 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             <div className="text-center">
-              <p className="text-4xl font-bold text-primary mb-2">10M+</p>
+              <p className="text-4xl md:text-5xl font-bold text-primary mb-2">10M+</p>
               <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Happy Patients</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-bold text-primary mb-2">50k+</p>
+              <p className="text-4xl md:text-5xl font-bold text-primary mb-2">50k+</p>
               <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Medicines Available</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-bold text-primary mb-2">200+</p>
+              <p className="text-4xl md:text-5xl font-bold text-primary mb-2">200+</p>
               <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Expert Doctors</p>
             </div>
             <div className="text-center">
-              <p className="text-4xl font-bold text-primary mb-2">24/7</p>
+              <p className="text-4xl md:text-5xl font-bold text-primary mb-2">24/7</p>
               <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Customer Support</p>
             </div>
           </div>
@@ -53,7 +53,7 @@ const AboutUs = () => {
       {/* Mission & Vision */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="relative">
               <div className="aspect-square rounded-[3rem] overflow-hidden">
                 <img 
