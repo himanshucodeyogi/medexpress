@@ -1,38 +1,11 @@
-import { Store, Phone, Mail, Clock, MapPin, User, Shield, Info, Edit3, Camera, RotateCcw, ExternalLink, Save, CheckCircle2 } from 'lucide-react';
+import { Store, Phone, Mail, Clock, MapPin, User, Shield, Info, Camera, RotateCcw, Save } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const StoreProfile = () => {
   const [activeTab, setActiveTab] = useState('store');
 
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
-      {/* Header */}
-      <div className="bg-white border-b border-slate-200 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div className="flex items-center gap-4 w-full md:w-auto">
-            <Link to="/admin" className="p-2 hover:bg-slate-100 rounded-full transition-colors shrink-0">
-              <RotateCcw className="w-5 h-5 text-slate-400" />
-            </Link>
-            <div className="min-w-0">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest truncate">Admin / Store Profile</p>
-              <h1 className="text-xl font-black text-slate-900 truncate">Store Profile</h1>
-            </div>
-            <div className="hidden sm:flex ml-2 px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-bold uppercase tracking-wider items-center gap-1 shrink-0">
-              <CheckCircle2 className="w-3 h-3" /> Verified
-            </div>
-          </div>
-          <div className="flex items-center gap-3 w-full md:w-auto">
-            <button className="flex-1 md:flex-none btn bg-white border border-slate-200 text-slate-600 px-4 py-2.5 text-sm font-bold flex items-center justify-center gap-2">
-              <ExternalLink className="w-4 h-4" /> <span className="sm:hidden">View</span><span className="hidden sm:inline">View Public Page</span>
-            </button>
-            <button className="flex-1 md:flex-none btn btn-primary px-6 py-2.5 text-sm font-bold flex items-center justify-center gap-2">
-              <Edit3 className="w-4 h-4" /> Edit Profile
-            </button>
-          </div>
-        </div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar Info */}

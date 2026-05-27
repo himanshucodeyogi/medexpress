@@ -18,28 +18,6 @@ const RegisterStore = () => {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
-      {/* Header */}
-      <div className="bg-white border-b border-slate-200 sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-8">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-                <Store className="text-white w-6 h-6" />
-              </div>
-              <span className="text-xl font-black text-slate-900 tracking-tight">MedExpress <span className="text-primary">Partner</span></span>
-            </Link>
-            <nav className="hidden md:flex items-center gap-6">
-              <Link to="/dashboard" className="text-sm font-bold text-slate-500 hover:text-primary transition-colors">Dashboard</Link>
-              <Link to="/catalog" className="text-sm font-bold text-slate-500 hover:text-primary transition-colors">Register Store</Link>
-            </nav>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link to="/login" className="text-sm font-bold text-slate-600 hover:text-primary transition-colors">Sign In</Link>
-            <button className="btn btn-primary px-6 py-2 text-sm font-bold">Need Help?</button>
-          </div>
-        </div>
-      </div>
-
       <div className="max-w-5xl mx-auto px-4 md:px-8 py-12">
         <div className="mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full text-primary text-[10px] font-bold uppercase tracking-widest mb-4">
