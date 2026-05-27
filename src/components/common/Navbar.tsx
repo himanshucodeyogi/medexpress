@@ -1,13 +1,22 @@
-import { ShoppingCart, Search, Bell, Menu, X, Pill, Upload } from 'lucide-react';
+import { ShoppingCart, Search, Bell, Menu, X, Pill, Upload, LogOut } from 'lucide-react';
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout, isAuthenticated } = useAuth();
 
   const isAdmin = location.pathname.startsWith('/admin');
   const isDelivery = location.pathname.startsWith('/delivery');
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    setIsMenuOpen(false);
+  };
 
   if (isAdmin || isDelivery) {
     return (
@@ -42,8 +51,13 @@ const Navbar = () => {
           </button>
           <div className="flex items-center gap-2 md:gap-3 ml-1 md:ml-2 pl-2 md:pl-4 border-l border-slate-200">
             <div className="text-right hidden sm:block">
-              <p className="text-xs md:text-sm font-bold text-slate-800">Alex Johnson</p>
-              <Link to="/admin/profile" className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest hover:text-primary transition-colors">View Profile</Link>
+              <p className="text-xs md:text-sm font-bold text-slate-800">{user?.name || 'User'}</p>
+              <button 
+                onClick={handleLogout}
+                className="flex items-center gap-1 text-[9px] md:text-[10px] font-bold text-red-400 uppercase tracking-widest hover:text-red-600 transition-colors"
+              >
+                <LogOut className="w-3 h-3" /> Logout
+              </button>
             </div>
             <img 
               src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
@@ -73,9 +87,15 @@ const Navbar = () => {
             <Upload className="w-4 h-4" />
             Upload Rx
           </Link>
-          <Link to="/login" className="px-3 py-1.5 bg-primary text-white rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-primary/90 transition-all whitespace-nowrap">Customer Login</Link>
-          <Link to="/delivery/login" className="px-3 py-1.5 bg-emerald-600 text-white rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-emerald-700 transition-all whitespace-nowrap">Delivery Login</Link>
-          <Link to="/admin/login" className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-blue-100 transition-all border border-blue-100 whitespace-nowrap">Admin Login</Link>
+          {!isAuthenticated ? (
+            <>
+              <Link to="/login" className="px-3 py-1.5 bg-primary text-white rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-primary/90 transition-all whitespace-nowrap">Customer Login</Link>
+              <Link to="/delivery/login" className="px-3 py-1.5 bg-emerald-600 text-white rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-emerald-700 transition-all whitespace-nowrap">Delivery Login</Link>
+              <Link to="/admin/login" className="px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-blue-100 transition-all border border-blue-100 whitespace-nowrap">Admin Login</Link>
+            </>
+          ) : (
+            <Link to={user?.role === 'admin' ? '/admin' : user?.role === 'delivery' ? '/delivery' : '/dashboard'} className="px-3 py-1.5 bg-slate-800 text-white rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-slate-900 transition-all whitespace-nowrap">Go to Dashboard</Link>
+          )}
         </div>
 
         <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
@@ -102,21 +122,30 @@ const Navbar = () => {
             </Link>
           </div>
           
-          <div className="flex items-center gap-2 md:gap-3 border-l border-slate-200 pl-2 md:pl-4">
-            <div className="text-right hidden sm:block lg:hidden 2xl:block">
-              <p className="text-xs md:text-sm font-bold text-slate-800">Alex Johnson</p>
-              <div className="flex items-center gap-1.5 md:gap-2 justify-end">
-                <Link to="/dashboard" className="text-[9px] md:text-[10px] font-bold text-slate-400 hover:text-primary transition-colors uppercase tracking-widest whitespace-nowrap">Dashboard</Link>
-                <span className="text-[9px] md:text-[10px] text-slate-200">•</span>
-                <Link to="/orders" className="text-[9px] md:text-[10px] font-bold text-slate-400 hover:text-primary transition-colors uppercase tracking-widest whitespace-nowrap">Orders</Link>
+          {isAuthenticated ? (
+            <div className="flex items-center gap-2 md:gap-3 border-l border-slate-200 pl-2 md:pl-4">
+              <div className="text-right hidden sm:block lg:hidden 2xl:block">
+                <p className="text-xs md:text-sm font-bold text-slate-800">{user?.name || 'User'}</p>
+                <div className="flex items-center gap-1.5 md:gap-2 justify-end">
+                  <button 
+                    onClick={handleLogout}
+                    className="text-[9px] md:text-[10px] font-bold text-red-400 hover:text-red-600 transition-colors uppercase tracking-widest whitespace-nowrap"
+                  >
+                    Logout
+                  </button>
+                </div>
               </div>
+              <img 
+                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
+                alt="Profile" 
+                className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-primary/20 object-cover"
+              />
             </div>
-            <img 
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" 
-              alt="Profile" 
-              className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-primary/20 object-cover"
-            />
-          </div>
+          ) : (
+            <div className="flex items-center gap-2 md:gap-3 border-l border-slate-200 pl-2 md:pl-4">
+              <Link to="/login" className="text-[10px] font-bold text-primary uppercase tracking-widest hover:underline whitespace-nowrap">Login</Link>
+            </div>
+          )}
           <button className="2xl:hidden p-2 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X /> : <Menu />}
           </button>
@@ -132,16 +161,29 @@ const Navbar = () => {
               <Upload className="w-4 h-4" />
               Upload Prescription
             </Link>
-            <Link to="/register-store" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Partner With Us</Link>
-            <Link to="/cart" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Shopping Cart</Link>
-            <Link to="/login" className="text-primary font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Customer Login</Link>
-            <Link to="/delivery/login" className="text-emerald-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Delivery Login</Link>
-            <Link to="/admin/login" className="text-blue-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Admin Login</Link>
-            <Link to="/dashboard" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Patient Portal</Link>
-            <Link to="/delivery" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Delivery Portal</Link>
-            <Link to="/admin" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Admin Portal</Link>
-            <Link to="/admin/store" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Store Profile</Link>
-            <Link to="/delivery/profile" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Courier Profile</Link>
+            
+            {!isAuthenticated ? (
+              <>
+                <Link to="/login" className="text-primary font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Customer Login</Link>
+                <Link to="/delivery/login" className="text-emerald-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Delivery Login</Link>
+                <Link to="/admin/login" className="text-blue-600 font-bold text-sm py-2 uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Admin Login</Link>
+              </>
+            ) : (
+              <>
+                <div className="pt-2 pb-1 border-t border-slate-100 mt-2">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">User: {user?.name}</p>
+                  <Link to={user?.role === 'admin' ? '/admin' : user?.role === 'delivery' ? '/delivery' : '/dashboard'} className="text-slate-900 font-bold text-sm py-2 block uppercase tracking-widest" onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
+                  <button 
+                    onClick={handleLogout}
+                    className="text-red-500 font-bold text-sm py-2 w-full text-left uppercase tracking-widest"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </>
+            )}
+            
+            <Link to="/register-store" className="text-slate-600 font-bold text-sm py-2 uppercase tracking-widest pt-2 border-t border-slate-50" onClick={() => setIsMenuOpen(false)}>Partner With Us</Link>
           </div>
         </div>
       )}
