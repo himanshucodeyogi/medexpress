@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/common/ProtectedRoute';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import HomePage from './pages/Home';
@@ -33,46 +35,124 @@ import DeliveryLogin from './pages/DeliveryLogin';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen flex flex-col bg-slate-50 selection:bg-primary/10 selection:text-primary overflow-x-hidden max-w-full">
-        <Navbar />
-        <main className="flex-grow max-w-full">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/catalog" element={<CatalogPage />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/dashboard" element={<PatientDashboard />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/inventory" element={<InventoryPage />} />
-            <Route path="/admin/orders" element={<AdminOrders />} />
-            <Route path="/admin/users" element={<AdminUsers />} />
-            <Route path="/admin/prescription/:id" element={<PrescriptionDetail />} />
-            <Route path="/upload" element={<PrescriptionUpload />} />
-            <Route path="/delivery" element={<DeliveryDashboard />} />
-            <Route path="/track/:id" element={<OrderTracking />} />
-            <Route path="/orders" element={<MyOrders />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/order-success" element={<OrderSuccess />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/contact" element={<ContactUs />} />
-            <Route path="/help" element={<HelpCenter />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/admin/profile" element={<AdminProfile />} />
-            <Route path="/payment-scan" element={<PaymentScan />} />
-            <Route path="/pharmacy/:id" element={<PharmacyDetail />} />
-            <Route path="/register-store" element={<RegisterStore />} />
-            <Route path="/admin/store" element={<StoreProfile />} />
-            <Route path="/delivery/profile" element={<DeliveryProfile />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/delivery/login" element={<DeliveryLogin />} />
-            <Route path="*" element={<div className="p-20 text-center font-bold">404 - Not Found</div>} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="min-h-screen flex flex-col bg-slate-50 selection:bg-primary/10 selection:text-primary overflow-x-hidden max-w-full">
+          <Navbar />
+          <main className="flex-grow max-w-full">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/catalog" element={<CatalogPage />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              
+              {/* Patient Routes */}
+              <Route path="/dashboard" element={
+                <ProtectedRoute allowedRoles={['patient']}>
+                  <PatientDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/orders" element={
+                <ProtectedRoute allowedRoles={['patient']}>
+                  <MyOrders />
+                </ProtectedRoute>
+              } />
+              <Route path="/profile" element={
+                <ProtectedRoute allowedRoles={['patient']}>
+                  <Profile />
+                </ProtectedRoute>
+              } />
+              <Route path="/upload" element={
+                <ProtectedRoute allowedRoles={['patient']}>
+                  <PrescriptionUpload />
+                </ProtectedRoute>
+              } />
+              <Route path="/track/:id" element={
+                <ProtectedRoute allowedRoles={['patient']}>
+                  <OrderTracking />
+                </ProtectedRoute>
+              } />
+              <Route path="/checkout" element={
+                <ProtectedRoute allowedRoles={['patient']}>
+                  <CheckoutPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/order-success" element={
+                <ProtectedRoute allowedRoles={['patient']}>
+                  <OrderSuccess />
+                </ProtectedRoute>
+              } />
+              <Route path="/payment-scan" element={
+                <ProtectedRoute allowedRoles={['patient']}>
+                  <PaymentScan />
+                </ProtectedRoute>
+              } />
+
+              {/* Admin Routes */}
+              <Route path="/admin" element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/inventory" element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <InventoryPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/orders" element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminOrders />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/users" element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminUsers />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/profile" element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminProfile />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/store" element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <StoreProfile />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/prescription/:id" element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <PrescriptionDetail />
+                </ProtectedRoute>
+              } />
+
+              {/* Delivery Routes */}
+              <Route path="/delivery" element={
+                <ProtectedRoute allowedRoles={['delivery']}>
+                  <DeliveryDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/delivery/profile" element={
+                <ProtectedRoute allowedRoles={['delivery']}>
+                  <DeliveryProfile />
+                </ProtectedRoute>
+              } />
+
+              {/* Public Routes */}
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/delivery/login" element={<DeliveryLogin />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/contact" element={<ContactUs />} />
+              <Route path="/help" element={<HelpCenter />} />
+              <Route path="/pharmacy/:id" element={<PharmacyDetail />} />
+              <Route path="/register-store" element={<RegisterStore />} />
+              <Route path="*" element={<div className="p-20 text-center font-bold">404 - Not Found</div>} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

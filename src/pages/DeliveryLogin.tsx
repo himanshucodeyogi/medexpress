@@ -1,9 +1,20 @@
 import { Pill, Mail, Lock, User, ArrowRight, ShieldCheck, Globe, Truck, MapPin, Package } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const DeliveryLoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    login(email || 'delivery@medexpress.com', 'delivery');
+    navigate('/delivery');
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-0 md:p-8">
@@ -101,14 +112,14 @@ const DeliveryLoginPage = () => {
               </p>
             </div>
 
-            <form className="space-y-4 md:space-y-6" onSubmit={(e) => { e.preventDefault(); window.location.href = '/delivery'; }}>
+            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               {!isLogin && (
                 <>
                   <div className="space-y-2">
                     <label htmlFor="full-name" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
                     <div className="relative">
                       <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-                      <input id="full-name" type="text" required placeholder="John Doe" className="input pl-12 bg-slate-50 border-slate-100 py-3 md:py-4" />
+                      <input id="full-name" type="text" placeholder="John Doe" className="input pl-12 bg-slate-50 border-slate-100 py-3 md:py-4" />
                     </div>
                   </div>
                   
@@ -116,7 +127,7 @@ const DeliveryLoginPage = () => {
                     <label htmlFor="phone" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Phone Number</label>
                     <div className="relative">
                       <Package className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-                      <input id="phone" type="tel" required placeholder="+1 (555) 000-0000" className="input pl-12 bg-slate-50 border-slate-100 py-3 md:py-4" />
+                      <input id="phone" type="tel" placeholder="+1 (555) 000-0000" className="input pl-12 bg-slate-50 border-slate-100 py-3 md:py-4" />
                     </div>
                   </div>
                 </>
@@ -126,7 +137,15 @@ const DeliveryLoginPage = () => {
                 <label htmlFor="email" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
                 <div className="relative">
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-                  <input id="email" type="email" required placeholder="john@example.com" className="input pl-12 bg-slate-50 border-slate-100 py-3 md:py-4" />
+                  <input 
+                    id="email" 
+                    type="email" 
+                    required 
+                    placeholder="john@example.com" 
+                    className="input pl-12 bg-slate-50 border-slate-100 py-3 md:py-4" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
               </div>
 
@@ -139,7 +158,15 @@ const DeliveryLoginPage = () => {
                 </div>
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-                  <input id="password" type="password" required placeholder="••••••••" className="input pl-12 bg-slate-50 border-slate-100 py-3 md:py-4" />
+                  <input 
+                    id="password" 
+                    type="password" 
+                    required 
+                    placeholder="••••••••" 
+                    className="input pl-12 bg-slate-50 border-slate-100 py-3 md:py-4" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
               </div>
 

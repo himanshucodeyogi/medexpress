@@ -1,9 +1,20 @@
 import { Shield, Mail, Lock, ArrowRight, Eye, Info } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const AdminLogin = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    login(email || 'admin@medexpress.com', 'admin');
+    navigate('/admin');
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
@@ -46,7 +57,7 @@ const AdminLogin = () => {
             </div>
 
             {/* Form */}
-            <form className="space-y-4 md:space-y-6" onSubmit={(e) => { e.preventDefault(); window.location.href = '/admin-dashboard'; }}>
+            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <label htmlFor="email" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
                 <div className="relative">
@@ -57,6 +68,8 @@ const AdminLogin = () => {
                     required
                     placeholder="admin@medexpress.com" 
                     className="w-full bg-slate-50 border border-slate-100 rounded-xl py-3.5 pl-12 pr-4 text-sm font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
               </div>
@@ -71,6 +84,8 @@ const AdminLogin = () => {
                     required
                     placeholder="Security credentials" 
                     className="w-full bg-slate-50 border border-slate-100 rounded-xl py-3.5 pl-12 pr-12 text-sm font-medium focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <button type="button" className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
                     <Eye className="w-4 h-4" />
