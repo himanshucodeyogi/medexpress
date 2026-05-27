@@ -19,60 +19,60 @@ const HomePage = () => {
   return (
     <div className="flex flex-col w-full">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-white py-20 px-6 lg:px-12">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
-          <div className="flex-1 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 rounded-full text-xs font-semibold text-primary uppercase tracking-wider mb-6">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-white py-12 md:py-20 px-4 md:px-8 lg:px-12">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
+          <div className="flex-1 text-center lg:text-left z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-100 rounded-full text-[10px] md:text-xs font-semibold text-primary uppercase tracking-wider mb-6">
               Official Medical Delivery Partner
             </div>
-            <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
               Fast & Reliable <br />
               <span className="text-primary">Medicine Delivery</span>
             </h1>
-            <p className="text-lg text-slate-600 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-base md:text-lg text-slate-600 mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
               Get your medications delivered to your doorstep in minutes. Upload your prescription and let our verified pharmacists take care of the rest.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <Link to="/catalog" className="btn btn-primary px-8 py-4 text-lg w-full sm:w-auto">
+              <Link to="/catalog" className="btn btn-primary px-8 py-4 text-lg w-full sm:w-auto font-bold shadow-lg shadow-primary/20">
                 Order Now <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link to="/upload" className="btn bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-50 px-8 py-4 text-lg w-full sm:w-auto shadow-sm">
+              <Link to="/upload" className="btn bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-50 px-8 py-4 text-lg w-full sm:w-auto shadow-sm font-bold">
                 Upload Prescription
               </Link>
             </div>
-            <div className="mt-12 flex items-center justify-center lg:justify-start gap-8">
+            <div className="mt-12 flex items-center justify-center lg:justify-start gap-6 md:gap-8">
               <div>
-                <p className="text-2xl font-bold text-slate-900">10k+</p>
-                <p className="text-sm text-slate-500 font-medium">Verified Patients</p>
+                <p className="text-xl md:text-2xl font-bold text-slate-900">10k+</p>
+                <p className="text-xs md:text-sm text-slate-500 font-medium">Verified Patients</p>
               </div>
               <div className="w-px h-10 bg-slate-200"></div>
               <div>
-                <p className="text-2xl font-bold text-slate-900">500+</p>
-                <p className="text-sm text-slate-500 font-medium">Partner Pharmacies</p>
+                <p className="text-xl md:text-2xl font-bold text-slate-900">500+</p>
+                <p className="text-xs md:text-sm text-slate-500 font-medium">Partner Pharmacies</p>
               </div>
             </div>
           </div>
-          <div className="flex-1 relative">
+          <div className="flex-1 relative w-full max-w-2xl lg:max-w-none">
             <div className="relative z-10 animate-in fade-in zoom-in duration-700">
               <img 
                 src="https://images.unsplash.com/photo-1576091160550-2173bdb999ef?auto=format&fit=crop&q=80&w=800" 
                 alt="Medicine Delivery" 
-                className="rounded-3xl shadow-2xl border-8 border-white"
+                className="rounded-3xl shadow-2xl border-4 md:border-8 border-white w-full h-auto"
               />
-              <div className="absolute -bottom-10 -left-10 bg-white p-6 rounded-2xl shadow-xl border border-blue-50 animate-bounce duration-[3000ms]">
-                <div className="flex items-center gap-4">
-                  <div className="bg-green-100 p-3 rounded-full text-green-600">
-                    <Truck className="w-6 h-6" />
+              <div className="absolute -bottom-6 -left-2 md:-bottom-10 md:-left-10 bg-white p-4 md:p-6 rounded-2xl shadow-xl border border-blue-50 animate-bounce duration-[3000ms]">
+                <div className="flex items-center gap-3 md:gap-4">
+                  <div className="bg-green-100 p-2 md:p-3 rounded-full text-green-600">
+                    <Truck className="w-5 h-5 md:w-6 md:h-6" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-slate-900">Delivery in progress</p>
-                    <p className="text-xs text-slate-500">Arriving in 12 mins</p>
+                    <p className="text-xs md:text-sm font-bold text-slate-900">Delivery in progress</p>
+                    <p className="text-[10px] md:text-xs text-slate-500">Arriving in 12 mins</p>
                   </div>
                 </div>
               </div>
             </div>
             {/* Background blobs */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-100/50 rounded-full blur-3xl -z-10"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] md:w-[120%] h-[100%] md:h-[120%] bg-blue-100/50 rounded-full blur-3xl -z-10"></div>
           </div>
         </div>
       </section>

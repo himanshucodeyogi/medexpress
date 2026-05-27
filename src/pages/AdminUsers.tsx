@@ -1,4 +1,4 @@
-import { Users, Search, Filter, MoreHorizontal, Mail, Phone, MapPin, Calendar, CheckCircle2, XCircle, Shield, UserPlus, ArrowLeft } from 'lucide-react';
+import { Users, Search, Filter, MoreHorizontal, Mail, Phone, Calendar, Shield, UserPlus, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const AdminUsers = () => {
@@ -12,41 +12,41 @@ const AdminUsers = () => {
   ];
 
   return (
-    <div className="p-6 md:p-10 max-w-7xl mx-auto">
+    <div className="p-4 md:p-10 max-w-7xl mx-auto">
       <Link to="/admin" className="flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-primary transition-colors mb-6 group">
         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
         Back to Dashboard
       </Link>
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 md:mb-10">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">User Management</h1>
-          <p className="text-slate-500 font-medium">View and manage all system users and their roles.</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">User Management</h1>
+          <p className="text-sm md:text-base text-slate-500 font-medium">View and manage all system users and their roles.</p>
         </div>
-        <div className="flex items-center gap-3">
-          <button className="btn bg-white border border-slate-200 text-slate-700 px-6 font-bold shadow-sm hover:bg-slate-50">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <button className="btn bg-white border border-slate-200 text-slate-700 px-6 py-3 font-bold shadow-sm hover:bg-slate-50 flex items-center justify-center gap-2">
             <Shield className="w-4 h-4" /> Role Permissions
           </button>
-          <button className="btn btn-primary px-6 font-bold">
+          <button className="btn btn-primary px-6 py-3 font-bold flex items-center justify-center gap-2">
             <UserPlus className="w-4 h-4" /> Add New User
           </button>
         </div>
       </div>
 
       {/* Stats Summary */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
         {[
           { label: 'Total Users', value: '2,842', color: 'text-primary', bg: 'bg-primary/5' },
           { label: 'Active Patients', value: '1,920', color: 'text-green-600', bg: 'bg-green-50' },
           { label: 'Verified Doctors', value: '42', color: 'text-blue-600', bg: 'bg-blue-50' },
           { label: 'Delivery Staff', value: '18', color: 'text-amber-600', bg: 'bg-amber-50' },
         ].map((stat, idx) => (
-          <div key={idx} className="card p-6 flex items-center justify-between">
+          <div key={idx} className="card p-4 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">{stat.label}</p>
-              <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{stat.label}</p>
+              <p className={`text-xl md:text-2xl font-bold ${stat.color}`}>{stat.value}</p>
             </div>
-            <div className={`w-12 h-12 ${stat.bg} rounded-2xl flex items-center justify-center`}>
-              <Users className={`w-6 h-6 ${stat.color}`} />
+            <div className={`w-10 h-10 md:w-12 md:h-12 ${stat.bg} rounded-xl md:rounded-2xl flex items-center justify-center shrink-0`}>
+              <Users className={`w-5 h-5 md:w-6 md:h-6 ${stat.color}`} />
             </div>
           </div>
         ))}
@@ -54,30 +54,30 @@ const AdminUsers = () => {
 
       {/* Filters */}
       <div className="card p-4 mb-8">
-        <div className="flex flex-col lg:flex-row gap-4">
+        <div className="flex flex-col xl:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
             <input 
               type="text" 
               placeholder="Search users by name, email or ID..." 
-              className="input pl-12 py-3 bg-slate-50 border-none w-full"
+              className="input pl-12 py-3 bg-slate-50 border-none w-full text-sm"
             />
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <select className="bg-slate-50 border-none rounded-2xl px-6 py-3 text-sm font-bold text-slate-600 focus:ring-2 focus:ring-primary/20 outline-none">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:flex items-center gap-3">
+            <select className="bg-slate-50 border-none rounded-2xl px-6 py-3 text-sm font-bold text-slate-600 focus:ring-2 focus:ring-primary/20 outline-none w-full">
               <option>All Roles</option>
               <option>Patient</option>
               <option>Doctor</option>
               <option>Delivery</option>
               <option>Admin</option>
             </select>
-            <select className="bg-slate-50 border-none rounded-2xl px-6 py-3 text-sm font-bold text-slate-600 focus:ring-2 focus:ring-primary/20 outline-none">
+            <select className="bg-slate-50 border-none rounded-2xl px-6 py-3 text-sm font-bold text-slate-600 focus:ring-2 focus:ring-primary/20 outline-none w-full">
               <option>All Status</option>
               <option>Active</option>
               <option>Inactive</option>
               <option>Suspended</option>
             </select>
-            <button className="btn bg-white border border-slate-200 text-slate-600 px-6 font-bold text-sm">
+            <button className="btn bg-white border border-slate-200 text-slate-600 px-6 py-3 font-bold text-sm flex items-center justify-center gap-2 sm:col-span-2 lg:col-span-1">
               <Filter className="w-4 h-4" /> Filter
             </button>
           </div>
@@ -95,32 +95,32 @@ const AdminUsers = () => {
             </div>
             
             <div className="flex items-center gap-4 mb-6">
-              <img src={user.img} alt={user.name} className="w-16 h-16 rounded-2xl object-cover ring-4 ring-slate-50" />
-              <div>
-                <h3 className="font-bold text-slate-900 group-hover:text-primary transition-colors">{user.name}</h3>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{user.role}</p>
+              <img src={user.img} alt={user.name} className="w-14 h-14 md:w-16 md:h-16 rounded-2xl object-cover ring-4 ring-slate-50" />
+              <div className="min-w-0">
+                <h3 className="font-bold text-slate-900 group-hover:text-primary transition-colors truncate">{user.name}</h3>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{user.role}</p>
               </div>
             </div>
 
             <div className="space-y-3 mb-6">
-              <div className="flex items-center gap-3 text-slate-500">
-                <Mail className="w-4 h-4" />
-                <span className="text-sm font-medium">{user.email}</span>
+              <div className="flex items-center gap-3 text-slate-500 overflow-hidden">
+                <Mail className="w-4 h-4 shrink-0" />
+                <span className="text-sm font-medium truncate">{user.email}</span>
               </div>
               <div className="flex items-center gap-3 text-slate-500">
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4 shrink-0" />
                 <span className="text-sm font-medium">{user.phone}</span>
               </div>
               <div className="flex items-center gap-3 text-slate-500">
-                <Calendar className="w-4 h-4" />
-                <span className="text-sm font-medium">Joined {user.joined}</span>
+                <Calendar className="w-4 h-4 shrink-0" />
+                <span className="text-sm font-medium whitespace-nowrap">Joined {user.joined}</span>
               </div>
             </div>
 
             <div className="flex items-center justify-between pt-6 border-t border-slate-50">
               <div className="flex items-center gap-2">
                 <span className={`w-2 h-2 rounded-full ${user.status === 'Active' ? 'bg-green-400' : 'bg-slate-300'}`}></span>
-                <span className="text-xs font-bold text-slate-600 uppercase tracking-widest">{user.status}</span>
+                <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">{user.status}</span>
               </div>
               <button className="text-xs font-bold text-primary hover:underline">View Profile</button>
             </div>

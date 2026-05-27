@@ -1,4 +1,4 @@
-import { User, Mail, Phone, MapPin, Shield, Bell, CreditCard, ShoppingBag, LogOut, Camera, ChevronRight, CheckCircle2 } from 'lucide-react';
+import { User, Mail, Phone, MapPin, Shield, Bell, CreditCard, LogOut, Camera, CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
 
 const Profile = () => {
@@ -107,7 +107,7 @@ const Profile = () => {
                   </div>
 
                   <div className="flex justify-end pt-6">
-                    <button className="btn btn-primary px-10 py-4 font-bold shadow-lg shadow-primary/20">Save Changes</button>
+                    <button type="submit" className="btn btn-primary px-10 py-4 font-bold shadow-lg shadow-primary/20">Save Changes</button>
                   </div>
                 </form>
               )}
@@ -124,7 +124,7 @@ const Profile = () => {
                         <p className="text-sm text-slate-500 font-medium">Add an extra layer of security to your account.</p>
                       </div>
                     </div>
-                    <button className="btn bg-white border border-slate-200 text-slate-700 px-6 font-bold hover:bg-slate-50 transition-all">Enable</button>
+                    <button type="button" className="btn bg-white border border-slate-200 text-slate-700 px-6 font-bold hover:bg-slate-50 transition-all">Enable</button>
                   </div>
 
                   <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
@@ -143,7 +143,7 @@ const Profile = () => {
                         <input type="password" placeholder="••••••••" className="input bg-slate-50 border-slate-100" />
                       </div>
                     </div>
-                    <button className="btn btn-primary px-10 py-4 font-bold mt-4">Update Password</button>
+                    <button type="submit" className="btn btn-primary px-10 py-4 font-bold mt-4">Update Password</button>
                   </form>
                 </div>
               )}

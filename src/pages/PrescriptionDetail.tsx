@@ -1,4 +1,4 @@
-import { FileText, User, Calendar, CheckCircle2, XCircle, Clock, Download, ExternalLink, Shield, AlertCircle, MessageSquare } from 'lucide-react';
+import { FileText, User, Calendar, CheckCircle2, XCircle, Download, ExternalLink, Shield, AlertCircle, MessageSquare } from 'lucide-react';
 import { useParams, Link } from 'react-router-dom';
 
 const PrescriptionDetail = () => {
@@ -32,33 +32,33 @@ const PrescriptionDetail = () => {
   };
 
   return (
-    <div className="p-6 md:p-10 max-w-7xl mx-auto">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+    <div className="p-4 md:p-10 max-w-7xl mx-auto">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-10">
         <div className="flex items-center gap-4">
           <Link to="/admin" className="p-2 hover:bg-slate-100 rounded-xl text-slate-400 transition-all">
             <XCircle className="w-6 h-6 rotate-45" />
           </Link>
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-1">Prescription Review</h1>
-            <p className="text-slate-500 font-medium">Reviewing {prescription.id} for {prescription.patient.name}</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">Prescription Review</h1>
+            <p className="text-sm md:text-base text-slate-500 font-medium">Reviewing {prescription.id} for {prescription.patient.name}</p>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <button className="btn bg-white border border-slate-200 text-red-600 px-6 font-bold hover:bg-red-50">
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          <button className="btn bg-white border border-slate-200 text-red-600 px-6 py-3 font-bold hover:bg-red-50 w-full sm:w-auto flex items-center justify-center gap-2">
             <XCircle className="w-4 h-4" /> Reject
           </button>
-          <button className="btn btn-primary px-8 font-bold shadow-xl shadow-primary/20">
+          <button className="btn btn-primary px-8 py-3 font-bold shadow-xl shadow-primary/20 w-full sm:w-auto flex items-center justify-center gap-2">
             <CheckCircle2 className="w-4 h-4" /> Approve & Process
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10">
         {/* Prescription Image & Main Info */}
         <div className="lg:col-span-2 space-y-8">
           <div className="card overflow-hidden">
             <div className="bg-slate-50 p-4 border-b border-slate-100 flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Original Document</span>
+              <span className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Original Document</span>
               <div className="flex items-center gap-2">
                 <button className="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-primary transition-all shadow-sm">
                   <Download className="w-4 h-4" />
@@ -68,32 +68,32 @@ const PrescriptionDetail = () => {
                 </button>
               </div>
             </div>
-            <div className="p-8 flex justify-center bg-slate-200/20">
+            <div className="p-4 md:p-8 flex justify-center bg-slate-200/20">
               <img src={prescription.image} alt="Prescription" className="max-w-full rounded-xl shadow-lg border border-white" />
             </div>
           </div>
 
-          <div className="card p-8">
+          <div className="card p-6 md:p-8">
             <h2 className="text-xl font-bold text-slate-900 mb-8">Extracted Medications</h2>
             <div className="space-y-6">
               {prescription.medicines.map((med, idx) => (
-                <div key={idx} className="flex flex-col md:flex-row md:items-center justify-between p-6 border border-slate-50 rounded-2xl bg-slate-50/30 group hover:border-primary/20 transition-all">
-                  <div className="flex items-center gap-4 mb-4 md:mb-0">
-                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-primary shadow-sm border border-slate-100">
+                <div key={idx} className="flex flex-col md:flex-row md:items-center justify-between p-4 md:p-6 border border-slate-50 rounded-2xl bg-slate-50/30 group hover:border-primary/20 transition-all">
+                  <div className="flex items-center gap-4 mb-6 md:mb-0">
+                    <div className="w-12 h-12 bg-white rounded-xl shrink-0 flex items-center justify-center text-primary shadow-sm border border-slate-100">
                       <FileText className="w-6 h-6" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-900 group-hover:text-primary transition-colors">{med.name}</h4>
+                      <h4 className="font-bold text-slate-900 group-hover:text-primary transition-colors leading-snug">{med.name}</h4>
                       <p className="text-xs text-slate-500 font-medium">{med.dosage}</p>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-2 gap-8 text-right">
+                  <div className="grid grid-cols-2 gap-8 text-left md:text-right">
                     <div>
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Duration</p>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Duration</p>
                       <p className="text-sm font-bold text-slate-900">{med.duration}</p>
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Quantity</p>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Quantity</p>
                       <p className="text-sm font-bold text-slate-900">{med.quantity} Units</p>
                     </div>
                   </div>

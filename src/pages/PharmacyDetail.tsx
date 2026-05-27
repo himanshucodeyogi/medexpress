@@ -1,8 +1,8 @@
-import { MapPin, Clock, Phone, Globe, Share2, Star, ShieldCheck, CheckCircle2, Heart, MessageSquare, ChevronRight, ShoppingBag, Info, Award, GraduationCap } from 'lucide-react';
+import { MapPin, Clock, Globe, Share2, Star, ShieldCheck, CheckCircle2, Heart, MessageSquare, ChevronRight, Info, Award, GraduationCap } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 
 const PharmacyDetail = () => {
-  const { id } = useParams();
+  const { } = useParams();
 
   // Mock data for the pharmacy
   const pharmacy = {
@@ -37,45 +37,45 @@ const PharmacyDetail = () => {
     <div className="bg-slate-50 min-h-screen pb-20">
       {/* Hero Section */}
       <section className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div className="flex items-center gap-3">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-bold uppercase tracking-wider">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12 lg:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="space-y-6 md:space-y-8">
+              <div className="flex flex-wrap items-center gap-3 md:gap-4">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-bold uppercase tracking-wider">
                   <ShieldCheck className="w-3.5 h-3.5" /> Verified Pharmacy
                 </div>
-                <div className="flex items-center gap-1 text-amber-500">
+                <div className="flex items-center gap-1.5 text-amber-500">
                   <Star className="w-4 h-4 fill-current" />
-                  <span className="text-sm font-black text-slate-900">{pharmacy.rating}</span>
+                  <span className="text-base font-black text-slate-900">{pharmacy.rating}</span>
                   <span className="text-sm font-bold text-slate-400">({pharmacy.reviews} reviews)</span>
                 </div>
               </div>
               
-              <h1 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-tight">
                 {pharmacy.name}
               </h1>
-              <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-xl">
+              <p className="text-base md:text-lg lg:text-xl text-slate-500 font-medium leading-relaxed max-w-xl">
                 Dedicated to providing expert pharmaceutical care and wellness solutions to our community with integrity and compassion.
               </p>
               
-              <div className="flex flex-wrap gap-4 pt-2">
-                <Link to="/catalog" className="btn btn-primary px-8 py-4 text-lg font-bold group">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-2">
+                <Link to="/catalog" className="btn btn-primary px-8 py-4 text-lg font-bold group w-full sm:w-auto text-center">
                   Browse Products <ChevronRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <button className="btn bg-white border border-slate-200 text-slate-700 px-8 py-4 text-lg font-bold hover:bg-slate-50 transition-colors">
+                <button className="btn bg-white border border-slate-200 text-slate-700 px-8 py-4 text-lg font-bold hover:bg-slate-50 transition-colors w-full sm:w-auto text-center">
                   Contact Store
                 </button>
               </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
-              <div className="col-span-2 aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/50">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="sm:col-span-2 aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl shadow-slate-200/50">
                 <img src={pharmacy.images[0]} alt="Pharmacy Main" className="w-full h-full object-cover" />
               </div>
-              <div className="aspect-square rounded-2xl overflow-hidden shadow-xl shadow-slate-200/50">
+              <div className="aspect-[4/3] sm:aspect-square rounded-2xl overflow-hidden shadow-xl shadow-slate-200/50">
                 <img src={pharmacy.images[1]} alt="Pharmacy Interior" className="w-full h-full object-cover" />
               </div>
-              <div className="aspect-square rounded-2xl overflow-hidden relative shadow-xl shadow-slate-200/50">
+              <div className="aspect-[4/3] sm:aspect-square rounded-2xl overflow-hidden relative shadow-xl shadow-slate-200/50">
                 <img src={pharmacy.images[2]} alt="Pharmacy Products" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                   <span className="text-white font-black text-xl">+8 Photos</span>

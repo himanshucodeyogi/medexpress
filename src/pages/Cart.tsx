@@ -42,43 +42,45 @@ const CartPage = () => {
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-10">
-        <div className="flex items-center gap-2 mb-8">
-          <Link to="/catalog" className="p-2 hover:bg-white rounded-full transition-colors text-slate-400 hover:text-primary">
-            <ChevronLeft className="w-6 h-6" />
-          </Link>
-          <h1 className="text-3xl font-bold text-slate-900">Your Shopping Cart</h1>
-          <span className="ml-2 px-3 py-1 bg-primary/10 text-primary text-sm font-bold rounded-full">
+        <div className="flex flex-col md:flex-row md:items-center gap-4 mb-8">
+          <div className="flex items-center gap-2">
+            <Link to="/catalog" className="p-2 hover:bg-white rounded-full transition-colors text-slate-400 hover:text-primary">
+              <ChevronLeft className="w-6 h-6" />
+            </Link>
+            <h1 className="text-2xl md:text-3xl font-bold text-slate-900">Your Shopping Cart</h1>
+          </div>
+          <span className="md:ml-2 px-3 py-1 bg-primary/10 text-primary text-sm font-bold rounded-full w-fit">
             {cartItems.length} Items
           </span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10">
           {/* Cart Items List */}
           <div className="lg:col-span-2 space-y-6">
             {cartItems.length > 0 ? (
               <>
                 <div className="card overflow-hidden divide-y divide-slate-100">
                   {cartItems.map((item) => (
-                    <div key={item.id} className="p-6 flex flex-col sm:flex-row gap-6 hover:bg-slate-50/50 transition-colors">
-                      <div className="w-full sm:w-32 h-32 bg-slate-100 rounded-2xl overflow-hidden border border-slate-100">
-                        <img src={item.img} alt={item.name} className="w-full h-full object-cover" />
+                    <div key={item.id} className="p-4 md:p-6 flex flex-col sm:flex-row gap-4 md:gap-6 hover:bg-slate-50/50 transition-colors">
+                      <div className="w-full sm:w-24 md:w-32 aspect-square sm:h-24 md:h-32 bg-white rounded-2xl overflow-hidden border border-slate-100 p-4">
+                        <img src={item.img} alt={item.name} className="w-full h-full object-contain" />
                       </div>
                       
                       <div className="flex-1 flex flex-col justify-between">
                         <div>
-                          <div className="flex justify-between items-start mb-2">
-                            <h3 className="font-bold text-slate-900 text-lg hover:text-primary transition-colors cursor-pointer">
+                          <div className="flex justify-between items-start mb-2 gap-2">
+                            <h3 className="font-bold text-slate-900 text-base md:text-lg hover:text-primary transition-colors cursor-pointer leading-tight">
                               {item.name}
                             </h3>
                             <button 
                               onClick={() => removeItem(item.id)}
-                              className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                              className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all flex-shrink-0"
                             >
                               <Trash2 className="w-5 h-5" />
                             </button>
                           </div>
-                          <div className="flex items-center gap-3 mb-4">
-                            <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{item.tag}</span>
+                          <div className="flex items-center gap-3 mb-4 flex-wrap">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{item.tag}</span>
                             {item.prescription && (
                               <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-bold rounded uppercase tracking-widest border border-blue-100">
                                 Rx Required
@@ -87,8 +89,8 @@ const CartPage = () => {
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-4 px-3 py-1.5 border border-slate-200 rounded-xl bg-white shadow-sm">
+                        <div className="flex items-center justify-between mt-auto">
+                          <div className="flex items-center gap-4 px-3 py-2 md:py-1.5 border border-slate-200 rounded-xl bg-white shadow-sm">
                             <button 
                               onClick={() => updateQuantity(item.id, -1)}
                               className="p-1 hover:text-primary transition-colors"
@@ -104,7 +106,7 @@ const CartPage = () => {
                             </button>
                           </div>
                           <div className="text-right">
-                            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-1">Price</p>
+                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-1">Total</p>
                             <p className="text-xl font-bold text-slate-900">${(item.price * item.quantity).toFixed(2)}</p>
                           </div>
                         </div>

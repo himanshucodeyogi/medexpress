@@ -1,7 +1,9 @@
-import { LayoutDashboard, ShoppingBag, Upload, MapPin, Settings, LogOut, Plus, ChevronRight, Clock, CheckCircle2, AlertCircle, FileText, ExternalLink, Map, Navigation, HeartPulse, Truck, Bell } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, Upload, MapPin, Settings, LogOut, Plus, Clock, CheckCircle2, FileText, ExternalLink, Map, Navigation, HeartPulse, Truck, Bell, Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const PatientDashboard = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const stats = [
     { icon: <ShoppingBag className="w-6 h-6 text-slate-600" />, label: 'Active Orders', value: '01', bg: 'bg-slate-50' },
     { icon: <CheckCircle2 className="w-6 h-6 text-green-600" />, label: 'Verified Rx', value: '08', bg: 'bg-green-50' },
@@ -22,21 +24,46 @@ const PatientDashboard = () => {
     { name: 'Dermatology Cream', date: 'Aug 12, 2023', doctor: 'Dr. Elena Ross', status: 'Verified' },
   ];
 
+  const sidebarItems = [
+    { icon: <LayoutDashboard className="w-5 h-5" />, label: 'Dashboard', path: '/dashboard', active: true },
+    { icon: <ShoppingBag className="w-5 h-5" />, label: 'My Orders', path: '/orders', active: false },
+    { icon: <Upload className="w-5 h-5" />, label: 'Upload Prescription', path: '/upload', active: false },
+    { icon: <MapPin className="w-5 h-5" />, label: 'Addresses', path: '/dashboard', active: false },
+    { icon: <Settings className="w-5 h-5" />, label: 'Settings', path: '/dashboard', active: false },
+  ];
+
   return (
-    <div className="flex bg-[#f8fafc] min-h-screen">
+    <div className="flex bg-[#f8fafc] min-h-screen relative">
+      {/* Mobile Sidebar Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+
       {/* Sidebar */}
-      <aside className="w-72 bg-white border-r border-slate-100 p-8 hidden lg:flex flex-col gap-10">
+      <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-100 p-8 flex flex-col gap-10 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+        <div className="flex items-center justify-between lg:hidden mb-4">
+          <div className="flex items-center gap-2">
+            <div className="bg-primary p-2 rounded-lg">
+              <HeartPulse className="text-white w-6 h-6" />
+            </div>
+            <span className="text-xl font-bold text-slate-800">MediFast</span>
+          </div>
+          <button 
+            onClick={() => setSidebarOpen(false)}
+            className="p-2 hover:bg-slate-100 rounded-full"
+          >
+            <X className="w-6 h-6 text-slate-600" />
+          </button>
+        </div>
         <div className="flex flex-col gap-2">
-          {[
-            { icon: <LayoutDashboard className="w-5 h-5" />, label: 'Dashboard', path: '/dashboard', active: true },
-            { icon: <ShoppingBag className="w-5 h-5" />, label: 'My Orders', path: '/orders', active: false },
-            { icon: <Upload className="w-5 h-5" />, label: 'Upload Prescription', path: '/upload', active: false },
-            { icon: <MapPin className="w-5 h-5" />, label: 'Addresses', path: '/dashboard', active: false },
-            { icon: <Settings className="w-5 h-5" />, label: 'Settings', path: '/dashboard', active: false },
-          ].map((item) => (
+          {sidebarItems.map((item) => (
             <Link 
               key={item.label}
               to={item.path}
+              onClick={() => setSidebarOpen(false)}
               className={`flex items-center gap-4 px-4 py-3 rounded-xl font-bold text-sm transition-all ${item.active ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'}`}
             >
               {item.icon} {item.label}
@@ -52,32 +79,40 @@ const PatientDashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto">
+      <main className="flex-1 p-4 md:p-6 lg:p-10 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-          <div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Patient Dashboard</h1>
-            <p className="text-slate-500 font-medium">Welcome back, Alex. Your last order is arriving in 48 hours.</p>
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => setSidebarOpen(true)}
+              className="lg:hidden p-2 hover:bg-slate-100 rounded-full"
+            >
+              <Menu className="w-6 h-6 text-slate-600" />
+            </button>
+            <div>
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 mb-2">Patient Dashboard</h1>
+              <p className="text-sm md:text-base text-slate-500 font-medium">Welcome back, Alex. Your last order is arriving in 48 hours.</p>
+            </div>
           </div>
-          <div className="flex items-center gap-3">
-            <Link to="/catalog" className="btn bg-white border border-slate-200 text-slate-700 px-6 font-bold shadow-sm hover:bg-slate-50">
+          <div className="flex items-center gap-3 flex-wrap">
+            <Link to="/catalog" className="btn bg-white border border-slate-200 text-slate-700 px-6 py-3 md:py-2 w-full md:w-auto font-bold shadow-sm hover:bg-slate-50 flex items-center justify-center gap-2">
               <Plus className="w-4 h-4" /> New Order
             </Link>
-            <Link to="/upload" className="btn btn-primary px-6 font-bold">
+            <Link to="/upload" className="btn btn-primary px-6 py-3 md:py-2 w-full md:w-auto font-bold flex items-center justify-center gap-2 text-center">
               <Upload className="w-4 h-4" /> Upload Rx
             </Link>
           </div>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
           {stats.map((stat, idx) => (
-            <div key={idx} className="card flex items-center gap-6 group hover:border-primary/20 transition-all cursor-pointer">
-              <div className={`w-14 h-14 ${stat.bg} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform`}>
+            <div key={idx} className="card p-4 md:p-6 flex flex-col sm:flex-row items-center gap-4 md:gap-6 group hover:border-primary/20 transition-all cursor-pointer text-center sm:text-left">
+              <div className={`w-12 h-12 md:w-14 md:h-14 ${stat.bg} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0`}>
                 {stat.icon}
               </div>
               <div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">{stat.label}</p>
-                <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
+                <p className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">{stat.label}</p>
+                <p className="text-xl md:text-2xl font-bold text-slate-900">{stat.value}</p>
               </div>
             </div>
           ))}
@@ -86,7 +121,7 @@ const PatientDashboard = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Recent Orders & Tracking */}
           <div className="lg:col-span-2 space-y-10">
-            <div className="card p-8">
+            <div className="card p-6 md:p-8">
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-xl font-bold text-slate-900">My Orders</h2>
                 <Link to="/orders" className="text-sm font-bold text-primary hover:underline">View History</Link>
@@ -94,10 +129,10 @@ const PatientDashboard = () => {
 
               <div className="flex flex-col gap-6">
                 {recentOrders.map((order) => (
-                  <div key={order.id} className="border border-slate-100 rounded-2xl p-6 hover:border-slate-200 transition-all group">
-                    <div className="flex items-center justify-between mb-6">
+                  <div key={order.id} className="border border-slate-100 rounded-2xl p-4 md:p-6 hover:border-slate-200 transition-all group">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-6">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-primary/5 group-hover:text-primary transition-colors">
+                        <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 group-hover:bg-primary/5 group-hover:text-primary transition-colors flex-shrink-0">
                           <ShoppingBag className="w-6 h-6" />
                         </div>
                         <div>
@@ -108,20 +143,19 @@ const PatientDashboard = () => {
                               order.status === 'Delivered' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
                             }`}>{order.status}</span>
                           </div>
-                          <p className="text-xs text-slate-500 font-medium">{order.items}</p>
+                          <p className="text-xs text-slate-500 font-medium line-clamp-1">{order.items}</p>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Order Date</p>
-                        <p className="text-sm font-bold text-slate-900">{order.date}</p>
+                      <div className="flex md:flex-col justify-between md:text-right border-t md:border-t-0 pt-4 md:pt-0 border-slate-50">
+                        <div className="text-left md:text-right">
+                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Order Date</p>
+                          <p className="text-sm font-bold text-slate-900">{order.date}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Amount</p>
+                          <p className="text-sm font-bold text-slate-900">{order.amount}</p>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Amount</p>
-                        <p className="text-sm font-bold text-slate-900">{order.amount}</p>
-                      </div>
-                      <button className="p-2 hover:bg-slate-50 rounded-lg text-slate-400 transition-colors">
-                        <ChevronRight className="w-5 h-5" />
-                      </button>
                     </div>
 
                     {order.tracking && (
@@ -132,30 +166,53 @@ const PatientDashboard = () => {
                             <Clock className="w-4 h-4 text-primary" /> Expected in 2 days
                           </div>
                         </div>
-                        <div className="relative h-1 bg-slate-100 rounded-full mb-8">
-                          <div className="absolute top-0 left-0 w-2/3 h-full bg-primary rounded-full"></div>
-                          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-8 h-8 bg-white border-2 border-primary rounded-full flex items-center justify-center shadow-md">
-                            <Clock className="w-4 h-4 text-primary" />
+                        
+                        {/* Desktop Timeline */}
+                        <div className="hidden sm:block">
+                          <div className="relative h-1 bg-slate-100 rounded-full mb-8">
+                            <div className="absolute top-0 left-0 w-2/3 h-full bg-primary rounded-full"></div>
+                            <div className="absolute top-1/2 left-0 -translate-y-1/2 w-8 h-8 bg-white border-2 border-primary rounded-full flex items-center justify-center shadow-md">
+                              <Clock className="w-4 h-4 text-primary" />
+                            </div>
+                            <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-8 h-8 bg-white border-2 border-primary rounded-full flex items-center justify-center shadow-md">
+                              <Settings className="w-4 h-4 text-primary" />
+                            </div>
+                            <div className="absolute top-1/2 left-2/3 -translate-y-1/2 w-8 h-8 bg-white border-2 border-primary rounded-full flex items-center justify-center shadow-md">
+                              <Truck className="w-4 h-4 text-primary" />
+                            </div>
+                            <div className="absolute top-1/2 left-full -translate-x-full -translate-y-1/2 w-8 h-8 bg-white border-2 border-slate-200 rounded-full flex items-center justify-center shadow-sm">
+                              <CheckCircle2 className="w-4 h-4 text-slate-300" />
+                            </div>
                           </div>
-                          <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-8 h-8 bg-white border-2 border-primary rounded-full flex items-center justify-center shadow-md">
-                            <Settings className="w-4 h-4 text-primary" />
-                          </div>
-                          <div className="absolute top-1/2 left-2/3 -translate-y-1/2 w-8 h-8 bg-white border-2 border-primary rounded-full flex items-center justify-center shadow-md">
-                            <Truck className="w-4 h-4 text-primary" />
-                          </div>
-                          <div className="absolute top-1/2 left-full -translate-x-full -translate-y-1/2 w-8 h-8 bg-white border-2 border-slate-200 rounded-full flex items-center justify-center shadow-sm">
-                            <CheckCircle2 className="w-4 h-4 text-slate-300" />
+                          <div className="grid grid-cols-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                            <span className="text-center">Ordered</span>
+                            <span className="text-center">Processing</span>
+                            <span className="text-center">Shipped</span>
+                            <span className="text-center text-slate-300">Delivered</span>
                           </div>
                         </div>
-                        <div className="grid grid-cols-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                          <span className="text-center">Ordered</span>
-                          <span className="text-center">Processing</span>
-                          <span className="text-center">Shipped</span>
-                          <span className="text-center text-slate-300">Delivered</span>
+
+                        {/* Mobile Timeline */}
+                        <div className="sm:hidden flex flex-col gap-6 ml-4 border-l-2 border-slate-100">
+                          {[
+                            { label: 'Ordered', status: 'complete', time: '10:00 AM' },
+                            { label: 'Processing', status: 'complete', time: '10:30 AM' },
+                            { label: 'Shipped', status: 'current', time: 'Expected 2:00 PM' },
+                            { label: 'Delivered', status: 'pending', time: 'Pending' }
+                          ].map((step, i) => (
+                            <div key={i} className="flex items-center gap-4 -ml-[9px]">
+                              <div className={`w-4 h-4 rounded-full border-4 border-white shadow-sm ${step.status === 'complete' ? 'bg-primary' : step.status === 'current' ? 'bg-primary animate-pulse' : 'bg-slate-200'}`}></div>
+                              <div>
+                                <p className={`text-[10px] font-bold uppercase tracking-widest ${step.status === 'pending' ? 'text-slate-300' : 'text-slate-900'}`}>{step.label}</p>
+                                <p className="text-[10px] text-slate-400 font-bold uppercase">{step.time}</p>
+                              </div>
+                            </div>
+                          ))}
                         </div>
-                        <div className="flex items-center justify-end gap-3 mt-8">
-                          <button className="text-xs font-bold text-slate-500 hover:text-slate-700">Help Center</button>
-                          <button className="btn btn-primary px-6 py-2 text-xs font-bold">Track Live Location</button>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-end gap-3 mt-8">
+                          <button className="text-xs font-bold text-slate-500 hover:text-slate-700 w-full sm:w-auto py-2">Help Center</button>
+                          <button className="btn btn-primary px-6 py-3 md:py-2 text-xs font-bold w-full sm:w-auto">Track Live Location</button>
                         </div>
                       </div>
                     )}
@@ -164,16 +221,16 @@ const PatientDashboard = () => {
               </div>
             </div>
 
-            <div className="card p-8">
+            <div className="card p-6 md:p-8">
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-xl font-bold text-slate-900">Health Documents</h2>
                 <button className="text-sm font-bold text-primary hover:underline">Manage All</button>
               </div>
               <div className="flex flex-col gap-4">
                 {documents.map((doc, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-4 border border-slate-50 rounded-2xl hover:bg-slate-50/50 transition-all cursor-pointer group">
+                  <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border border-slate-50 rounded-2xl hover:bg-slate-50/50 transition-all cursor-pointer group gap-4">
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 bg-white border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors">
+                      <div className="w-10 h-10 bg-white border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors flex-shrink-0">
                         <FileText className="w-5 h-5" />
                       </div>
                       <div>
@@ -181,7 +238,7 @@ const PatientDashboard = () => {
                         <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">{doc.date} • {doc.doctor}</p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-50">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
                         doc.status === 'Verified' ? 'bg-green-100 text-green-600' : 'bg-slate-100 text-slate-400'
                       }`}>{doc.status}</span>
@@ -198,20 +255,20 @@ const PatientDashboard = () => {
           {/* Right Sidebar */}
           <div className="space-y-10">
             {/* Live Tracking Card */}
-            <div className="bg-primary rounded-3xl p-8 text-white relative overflow-hidden group">
+            <div className="bg-primary rounded-3xl p-6 md:p-8 text-white relative overflow-hidden group">
               <div className="relative z-10">
                 <div className="inline-block px-2 py-0.5 bg-white/20 rounded text-[10px] font-bold uppercase tracking-widest mb-4">Live Tracking</div>
                 <h3 className="text-xl font-bold mb-2">Your medicine is on the way!</h3>
                 <p className="text-white/70 text-sm mb-8 leading-relaxed">Delivery partner Michael is 10 mins away from your location.</p>
-                <button className="w-full btn bg-white text-primary hover:bg-slate-50 font-bold">
+                <button className="w-full btn bg-white text-primary hover:bg-slate-50 font-bold py-3 md:py-2">
                   <Navigation className="w-4 h-4" /> Open Live Map
                 </button>
               </div>
-              <Map className="absolute top-1/2 right-0 w-48 h-48 text-white/10 -translate-y-1/2 translate-x-1/4 rotate-12 group-hover:scale-110 transition-transform duration-700" />
+              <Map className="absolute top-1/2 right-0 w-32 h-32 md:w-48 md:h-48 text-white/10 -translate-y-1/2 translate-x-1/4 rotate-12 group-hover:scale-110 transition-transform duration-700" />
             </div>
 
             {/* Saved Locations */}
-            <div className="card p-8">
+            <div className="card p-6 md:p-8">
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-xl font-bold text-slate-900">Saved Locations</h2>
                 <button className="p-1.5 bg-slate-50 hover:bg-primary hover:text-white rounded-lg text-slate-400 transition-all">
@@ -248,7 +305,7 @@ const PatientDashboard = () => {
             </div>
 
             {/* Health Tip */}
-            <div className="bg-green-50 rounded-3xl p-8 border border-green-100">
+            <div className="bg-green-50 rounded-3xl p-6 md:p-8 border border-green-100">
               <div className="flex gap-4">
                 <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-green-600 shadow-sm flex-shrink-0">
                   <Bell className="w-5 h-5" />

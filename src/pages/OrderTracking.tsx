@@ -1,8 +1,8 @@
-import { Clock, MapPin, Truck, CheckCircle2, Package, Phone, MessageSquare, ChevronRight, ShieldCheck, Map, Navigation, Star, HeartPulse, HelpCircle, LayoutDashboard, Plus, Minus } from 'lucide-react';
+import { Clock, MapPin, Truck, CheckCircle2, Package, Phone, MessageSquare, ChevronRight, ShieldCheck, Navigation, Star, HelpCircle, LayoutDashboard, Plus, Minus } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 
 const OrderTracking = () => {
-  const { id } = useParams();
+  useParams();
 
   const order = {
     id: '#MF-882910',
@@ -63,13 +63,14 @@ const OrderTracking = () => {
       </div>
 
       {/* Delivery Journey */}
-      <div className="card p-10 mb-10">
+      <div className="card p-6 md:p-10 mb-10">
         <div className="text-center mb-12">
-          <h2 className="text-xl font-bold text-slate-900 mb-2">Delivery Journey</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-2">Delivery Journey</h2>
           <p className="text-sm text-slate-500 font-medium">Your order is being handled with clinical care.</p>
         </div>
         
-        <div className="relative h-1 bg-slate-100 rounded-full mb-12 max-w-4xl mx-auto">
+        {/* Desktop Timeline */}
+        <div className="hidden md:block relative h-1 bg-slate-100 rounded-full mb-12 max-w-4xl mx-auto mt-20">
           {/* Progress fill */}
           <div className="absolute top-0 left-0 w-2/3 h-full bg-primary rounded-full"></div>
           
@@ -112,6 +113,29 @@ const OrderTracking = () => {
               <p className="text-[10px] text-slate-200 font-bold uppercase tracking-widest">Expected 12:15 PM</p>
             </div>
           </div>
+        </div>
+
+        {/* Mobile Timeline */}
+        <div className="md:hidden space-y-8 relative ml-4">
+          <div className="absolute top-0 bottom-0 left-5 w-1 bg-slate-100 rounded-full">
+            <div className="absolute top-0 left-0 w-full h-2/3 bg-primary rounded-full transition-all duration-1000"></div>
+          </div>
+          {[
+            { icon: <Package className="w-5 h-5" />, label: 'Ordered', time: '09:30 AM', status: 'complete' },
+            { icon: <ShieldCheck className="w-5 h-5" />, label: 'Packed', time: '10:15 AM', status: 'complete' },
+            { icon: <Truck className="w-5 h-5" />, label: 'Out for Delivery', time: '11:45 AM', status: 'current' },
+            { icon: <CheckCircle2 className="w-5 h-5" />, label: 'Delivered', time: 'Expected 12:15 PM', status: 'pending' }
+          ].map((step, i) => (
+            <div key={i} className="flex items-center gap-6 relative z-10">
+              <div className={`w-11 h-11 rounded-full flex items-center justify-center border-4 border-white shadow-md transition-all ${step.status === 'complete' ? 'bg-primary text-white' : step.status === 'current' ? 'bg-primary text-white scale-110 shadow-primary/20' : 'bg-white text-slate-300 border-slate-100'}`}>
+                {step.icon}
+              </div>
+              <div>
+                <p className={`text-sm font-bold uppercase tracking-widest ${step.status === 'pending' ? 'text-slate-300' : 'text-slate-900'}`}>{step.label}</p>
+                <p className={`text-[10px] font-bold uppercase ${step.status === 'pending' ? 'text-slate-200' : 'text-slate-400'}`}>{step.time}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

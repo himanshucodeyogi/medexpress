@@ -1,9 +1,9 @@
-import { Star, Heart, Share2, ShieldCheck, Truck, Clock, Plus, Minus, Upload, ChevronRight, ShoppingCart, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Star, Heart, ShieldCheck, Truck, Clock, Plus, Minus, Upload, ChevronRight, ShoppingCart, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('details');
   const [selectedDosage, setSelectedDosage] = useState('500mg');
@@ -87,9 +87,9 @@ const ProductDetail = () => {
             </span>
           </div>
 
-          <h1 className="text-4xl font-bold text-slate-900 mb-4 leading-tight">{product.name}</h1>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 leading-tight">{product.name}</h1>
           
-          <div className="flex items-center gap-6 mb-8">
+          <div className="flex flex-wrap items-center gap-4 md:gap-6 mb-8">
             <div className="flex items-center gap-1.5">
               {[1, 2, 3, 4, 5].map((s) => (
                 <Star key={s} className={`w-4 h-4 ${s <= 4 ? 'fill-accent text-accent' : 'text-slate-200'}`} />
@@ -97,19 +97,19 @@ const ProductDetail = () => {
               <span className="text-sm font-bold text-slate-800 ml-2">4.8</span>
               <span className="text-sm text-slate-400 font-medium ml-1">(1.2k Reviews)</span>
             </div>
-            <div className="w-px h-4 bg-slate-200"></div>
+            <div className="hidden sm:block w-px h-4 bg-slate-200"></div>
             <div className="flex items-center gap-2 text-sm font-bold text-green-600">
               <CheckCircle2 className="w-4 h-4" /> In Stock
             </div>
           </div>
 
           <div className="flex items-baseline gap-4 mb-8">
-            <span className="text-4xl font-bold text-primary">${product.price.toFixed(2)}</span>
-            <span className="text-xl text-slate-400 line-through">${product.oldPrice.toFixed(2)}</span>
+            <span className="text-3xl md:text-4xl font-bold text-primary">${product.price.toFixed(2)}</span>
+            <span className="text-lg md:text-xl text-slate-400 line-through">${product.oldPrice.toFixed(2)}</span>
             <span className="px-2 py-1 bg-red-100 text-red-600 text-xs font-bold rounded-md">{product.discount}</span>
           </div>
 
-          <p className="text-slate-600 leading-relaxed mb-8">{product.description}</p>
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed mb-8">{product.description}</p>
 
           {/* Dosage Selection */}
           <div className="mb-8">
@@ -117,12 +117,12 @@ const ProductDetail = () => {
               <span className="text-sm font-bold text-slate-900">Select Dosage</span>
               <button className="text-xs font-bold text-primary hover:underline">Size Guide</button>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2 md:gap-3">
               {product.dosages.map((dosage) => (
                 <button 
                   key={dosage}
                   onClick={() => setSelectedDosage(dosage)}
-                  className={`px-6 py-2 rounded-xl text-sm font-bold transition-all border-2 ${selectedDosage === dosage ? 'bg-primary border-primary text-white shadow-md' : 'bg-white border-slate-100 text-slate-600 hover:border-slate-200'}`}
+                  className={`flex-1 sm:flex-none px-4 md:px-6 py-2 rounded-xl text-sm font-bold transition-all border-2 ${selectedDosage === dosage ? 'bg-primary border-primary text-white shadow-md' : 'bg-white border-slate-100 text-slate-600 hover:border-slate-200'}`}
                 >
                   {dosage}
                 </button>
@@ -131,8 +131,8 @@ const ProductDetail = () => {
           </div>
 
           {/* Quantity & Add to Cart */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
-            <div className="flex items-center gap-4 px-4 py-2 border-2 border-slate-100 rounded-xl bg-slate-50 w-full sm:w-auto justify-between">
+          <div className="flex flex-col sm:flex-row items-center gap-4 mb-4">
+            <div className="flex items-center gap-4 px-4 py-3 md:py-2 border-2 border-slate-100 rounded-xl bg-slate-50 w-full sm:w-auto justify-between sm:justify-start">
               <button 
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 className="p-1 hover:text-primary transition-colors"
@@ -147,12 +147,12 @@ const ProductDetail = () => {
                 <Plus className="w-5 h-5" />
               </button>
             </div>
-            <Link to="/cart" className="btn btn-primary flex-1 py-4 text-lg w-full flex items-center justify-center gap-2">
+            <Link to="/cart" className="btn btn-primary flex-1 py-4 md:py-3 text-lg w-full flex items-center justify-center gap-2 font-bold">
               <ShoppingCart className="w-5 h-5" /> Add to Cart
             </Link>
           </div>
 
-          <Link to="/checkout" className="btn bg-white border-2 border-primary text-primary hover:bg-primary/5 py-4 text-lg w-full mb-8 flex items-center justify-center">
+          <Link to="/checkout" className="btn bg-white border-2 border-primary text-primary hover:bg-primary/5 py-4 md:py-3 text-lg w-full mb-8 flex items-center justify-center font-bold">
             Buy Now
           </Link>
 

@@ -1,4 +1,4 @@
-import { ShoppingBag, ChevronRight, Search, Filter, Clock, CheckCircle2, XCircle } from 'lucide-react';
+import { ShoppingBag, ChevronRight, Search, Filter, Clock, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const MyOrders = () => {
@@ -11,15 +11,15 @@ const MyOrders = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-10">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+    <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-10">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 md:mb-10">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">My Orders</h1>
-          <p className="text-slate-500 font-medium">View and track all your medical orders.</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">My Orders</h1>
+          <p className="text-sm md:text-base text-slate-500 font-medium">View and track all your medical orders.</p>
         </div>
         <div className="flex items-center gap-3">
-          <Link to="/catalog" className="btn btn-primary px-6 font-bold">
-            <ShoppingBag className="w-4 h-4" /> Order New Medicine
+          <Link to="/catalog" className="flex-1 md:flex-none btn btn-primary px-6 py-3 font-bold flex items-center justify-center gap-2">
+            <ShoppingBag className="w-4 h-4" /> Order New
           </Link>
         </div>
       </div>
@@ -30,8 +30,8 @@ const MyOrders = () => {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
             <input 
               type="text" 
-              placeholder="Search by Order ID or Medicine..." 
-              className="input pl-12 py-3 bg-slate-50 border-none w-full"
+              placeholder="Search orders..." 
+              className="input pl-12 py-3 bg-slate-50 border-none w-full text-sm"
             />
           </div>
           <button className="flex items-center justify-center gap-2 px-6 py-3 bg-white border border-slate-200 rounded-2xl text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all">
@@ -40,72 +40,72 @@ const MyOrders = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4 md:gap-6">
         {orders.map((order) => (
-          <div key={order.id} className="card p-6 md:p-8 hover:border-primary/20 transition-all group">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div className="flex items-center gap-6">
-                <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 group-hover:bg-primary/5 group-hover:text-primary transition-colors">
-                  <ShoppingBag className="w-8 h-8" />
+          <div key={order.id} className="card p-5 md:p-8 hover:border-primary/20 transition-all group">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div className="flex items-center gap-4 md:gap-6">
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 group-hover:bg-primary/5 group-hover:text-primary transition-colors shrink-0">
+                  <ShoppingBag className="w-6 h-6 md:w-8 md:h-8" />
                 </div>
-                <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <h4 className="text-lg font-bold text-slate-900">{order.id}</h4>
-                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                <div className="min-w-0">
+                  <div className="flex items-center gap-3 mb-1 md:mb-2">
+                    <h4 className="text-base md:text-lg font-bold text-slate-900 truncate">{order.id}</h4>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider shrink-0 ${
                       order.status === 'In Progress' ? 'bg-blue-100 text-blue-600' : 
                       order.status === 'Delivered' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
                     }`}>
                       {order.status}
                     </span>
                   </div>
-                  <p className="text-sm text-slate-500 font-medium mb-1">{order.items}</p>
-                  <p className="text-xs font-bold text-primary uppercase tracking-widest">{order.type}</p>
+                  <p className="text-xs md:text-sm text-slate-500 font-medium mb-1 truncate">{order.items}</p>
+                  <p className="text-[10px] font-bold text-primary uppercase tracking-widest">{order.type}</p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 text-right md:text-left">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-12 lg:text-left">
                 <div>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Order Date</p>
-                  <p className="text-sm font-bold text-slate-900">{order.date}</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Order Date</p>
+                  <p className="text-xs md:text-sm font-bold text-slate-900 whitespace-nowrap">{order.date}</p>
                 </div>
                 <div className="hidden md:block">
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Payment</p>
-                  <p className="text-sm font-bold text-slate-900">Credit Card</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Payment</p>
+                  <p className="text-xs md:text-sm font-bold text-slate-900 whitespace-nowrap">Credit Card</p>
                 </div>
-                <div className="text-right">
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Amount</p>
-                  <p className="text-lg font-bold text-slate-900">{order.amount}</p>
+                <div className="text-right sm:text-left md:text-right">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Amount</p>
+                  <p className="text-base md:text-lg font-bold text-slate-900 whitespace-nowrap">{order.amount}</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 w-full lg:w-auto">
                 <Link 
                   to={`/track/${order.id}`}
-                  className="flex-1 md:flex-none btn bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-6 py-2.5 text-sm font-bold"
+                  className="flex-1 lg:flex-none btn bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-6 py-2.5 text-sm font-bold text-center"
                 >
                   Track Order
                 </Link>
-                <button className="p-2.5 hover:bg-slate-50 rounded-xl text-slate-400 transition-colors border border-transparent hover:border-slate-100">
+                <button className="p-2.5 hover:bg-slate-50 rounded-xl text-slate-400 transition-colors border border-transparent hover:border-slate-100 shrink-0">
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
             </div>
 
             {order.status === 'In Progress' && (
-              <div className="mt-8 pt-8 border-t border-slate-50 flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-slate-50 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                  <div className="flex -space-x-2">
+                  <div className="flex -space-x-2 shrink-0">
                     {[1, 2, 3].map((i) => (
-                      <div key={i} className={`w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-white text-[10px] font-bold ${
+                      <div key={i} className={`w-7 h-7 md:w-8 md:h-8 rounded-full border-2 border-white flex items-center justify-center text-white text-[10px] font-bold ${
                         i === 1 ? 'bg-primary' : i === 2 ? 'bg-primary/60' : 'bg-slate-200'
                       }`}>
                         {i === 1 ? <Clock className="w-4 h-4" /> : i === 2 ? <CheckCircle2 className="w-4 h-4" /> : i}
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Processing at Central Warehouse</p>
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-tight">Processing at Central Warehouse</p>
                 </div>
-                <p className="text-xs font-bold text-primary">Estimated Delivery: Oct 26, 2023</p>
+                <p className="text-[10px] font-bold text-primary uppercase tracking-widest">Est. Delivery: Oct 26, 2023</p>
               </div>
             )}
           </div>

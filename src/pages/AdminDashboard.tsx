@@ -112,22 +112,22 @@ const AdminDashboard = () => {
               <Menu className="w-6 h-6 text-slate-600" />
             </button>
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">Admin Dashboard</h1>
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 mb-1">Admin Dashboard</h1>
               <p className="text-xs md:text-sm text-slate-500 font-medium">Real-time overview of pharmacy operations.</p>
             </div>
           </div>
           <div className="flex items-center gap-3 flex-wrap">
-            <button className="btn bg-white border border-slate-200 text-slate-700 px-6 font-bold shadow-sm hover:bg-slate-50">
+            <button className="btn bg-white border border-slate-200 text-slate-700 px-6 py-3 md:py-2 w-full md:w-auto font-bold shadow-sm hover:bg-slate-50">
               Export Report
             </button>
-            <Link to="/admin/orders" className="btn btn-primary px-6 font-bold">
+            <Link to="/admin/orders" className="btn btn-primary px-6 py-3 md:py-2 w-full md:w-auto font-bold text-center">
               Manage Orders
             </Link>
           </div>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
           {stats.map((stat, idx) => (
             <div key={idx} className="card p-4 md:p-5 group hover:border-primary/20 transition-all cursor-pointer">
               <div className="flex items-center justify-between mb-3">

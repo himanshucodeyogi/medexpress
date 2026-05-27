@@ -1,9 +1,8 @@
-import { Store, MapPin, Upload, User, Mail, Phone, GraduationCap, CheckCircle2, AlertCircle, Info, ChevronRight } from 'lucide-react';
+import { Store, MapPin, Upload, User, CheckCircle2, AlertCircle, Info, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const RegisterStore = () => {
-  const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -46,8 +45,8 @@ const RegisterStore = () => {
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full text-primary text-[10px] font-bold uppercase tracking-widest mb-4">
             Partner Onboarding
           </div>
-          <h1 className="text-4xl font-bold text-slate-900 mb-4">Register Your Store</h1>
-          <p className="text-slate-500 font-medium">Connect your pharmacy to the MedExpress network and reach more customers.</p>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">Register Your Store</h1>
+          <p className="text-sm md:text-base text-slate-500 font-medium">Connect your pharmacy to the MedExpress network and reach more customers.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -67,15 +66,15 @@ const RegisterStore = () => {
 
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Store Name *</label>
-                    <input type="text" placeholder="e.g. Central Health Pharmacy" className="input bg-slate-50 border-slate-100" required />
+                    <label htmlFor="store-name" className="text-xs font-bold text-slate-400 uppercase tracking-widest">Store Name *</label>
+                    <input id="store-name" type="text" placeholder="e.g. Central Health Pharmacy" className="input bg-slate-50 border-slate-100" required />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Store Location *</label>
+                    <label htmlFor="store-location" className="text-xs font-bold text-slate-400 uppercase tracking-widest">Store Location *</label>
                     <div className="relative">
                       <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                      <input type="text" placeholder="Search for your address..." className="input pl-12 bg-slate-50 border-slate-100" required />
+                      <input id="store-location" type="text" placeholder="Search for your address..." className="input pl-12 bg-slate-50 border-slate-100" required />
                       <button type="button" className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-50">Set on Map</button>
                     </div>
                     <div className="mt-4 aspect-video bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-center overflow-hidden relative">
@@ -90,7 +89,7 @@ const RegisterStore = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Store Images *</label>
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Store Images *</span>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                       <button type="button" className="aspect-square border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-primary hover:bg-primary/5 transition-all group min-h-[100px]">
                         <Upload className="w-6 h-6 text-slate-400 group-hover:text-primary" />
@@ -116,8 +115,9 @@ const RegisterStore = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Store Description *</label>
+                    <label htmlFor="store-description" className="text-xs font-bold text-slate-400 uppercase tracking-widest">Store Description *</label>
                     <textarea 
+                      id="store-description"
                       placeholder="Tell us about your pharmacy, specialties, and service hours..." 
                       className="input bg-slate-50 border-slate-100 min-h-[120px] py-4"
                       required
@@ -157,53 +157,53 @@ const RegisterStore = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Full Name *</label>
-                    <input type="text" defaultValue="Dr. Johnathan Doe" className="input bg-slate-50 border-slate-100" required />
+                    <label htmlFor="owner-name" className="text-xs font-bold text-slate-400 uppercase tracking-widest">Full Name *</label>
+                    <input id="owner-name" type="text" defaultValue="Dr. Johnathan Doe" className="input bg-slate-50 border-slate-100" required />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Contact Number *</label>
+                    <label htmlFor="owner-phone" className="text-xs font-bold text-slate-400 uppercase tracking-widest">Contact Number *</label>
                     <div className="flex gap-2">
                       <div className="w-20 flex items-center justify-center bg-slate-50 border border-slate-100 rounded-xl text-sm font-bold text-slate-600">+1</div>
-                      <input type="tel" placeholder="(555) 000-0000" className="input flex-1 bg-slate-50 border-slate-100" required />
+                      <input id="owner-phone" type="tel" placeholder="(555) 000-0000" className="input flex-1 bg-slate-50 border-slate-100" required />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Email Address *</label>
-                    <input type="email" placeholder="john.doe@example.com" className="input bg-slate-50 border-slate-100" required />
+                    <label htmlFor="owner-email" className="text-xs font-bold text-slate-400 uppercase tracking-widest">Email Address *</label>
+                    <input id="owner-email" type="email" placeholder="john.doe@example.com" className="input bg-slate-50 border-slate-100" required />
                     <p className="text-[10px] text-red-500 font-bold flex items-center gap-1 mt-1">
                       <AlertCircle className="w-3 h-3" /> Please enter a valid work email address
                     </p>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Professional Education *</label>
-                    <input type="text" placeholder="e.g. PharmD, University of Medicine" className="input bg-slate-50 border-slate-100" required />
+                    <label htmlFor="owner-education" className="text-xs font-bold text-slate-400 uppercase tracking-widest">Professional Education *</label>
+                    <input id="owner-education" type="text" placeholder="e.g. PharmD, University of Medicine" className="input bg-slate-50 border-slate-100" required />
                   </div>
                 </div>
               </div>
 
               {/* Agreement */}
               <div className="space-y-4">
-                <label className="flex items-start gap-3 cursor-pointer group">
+                <div className="flex items-start gap-3 group">
                   <div className="relative mt-1">
-                    <input type="checkbox" className="peer hidden" required />
-                    <div className="w-5 h-5 border-2 border-slate-200 rounded flex items-center justify-center transition-all peer-checked:bg-primary peer-checked:border-primary group-hover:border-primary">
+                    <input id="terms" type="checkbox" className="peer hidden" required />
+                    <label htmlFor="terms" className="w-5 h-5 border-2 border-slate-200 rounded flex items-center justify-center transition-all peer-checked:bg-primary peer-checked:border-primary group-hover:border-primary cursor-pointer">
                       <CheckCircle2 className="w-3 h-3 text-white" />
-                    </div>
+                    </label>
                   </div>
-                  <span className="text-sm font-medium text-slate-500">I agree to the MedExpress Partner <Link to="#" className="text-primary font-bold hover:underline">Terms of Service</Link> and <Link to="#" className="text-primary font-bold hover:underline">Privacy Policy</Link>.</span>
-                </label>
-                <label className="flex items-start gap-3 cursor-pointer group">
+                  <label htmlFor="terms" className="text-sm font-medium text-slate-500 cursor-pointer">I agree to the MedExpress Partner <Link to="#" className="text-primary font-bold hover:underline">Terms of Service</Link> and <Link to="#" className="text-primary font-bold hover:underline">Privacy Policy</Link>.</label>
+                </div>
+                <div className="flex items-start gap-3 group">
                   <div className="relative mt-1">
-                    <input type="checkbox" className="peer hidden" defaultChecked />
-                    <div className="w-5 h-5 border-2 border-slate-200 rounded flex items-center justify-center transition-all peer-checked:bg-primary peer-checked:border-primary group-hover:border-primary">
+                    <input id="newsletter" type="checkbox" className="peer hidden" defaultChecked />
+                    <label htmlFor="newsletter" className="w-5 h-5 border-2 border-slate-200 rounded flex items-center justify-center transition-all peer-checked:bg-primary peer-checked:border-primary group-hover:border-primary cursor-pointer">
                       <CheckCircle2 className="w-3 h-3 text-white" />
-                    </div>
+                    </label>
                   </div>
-                  <span className="text-sm font-medium text-slate-500">Subscribe to our partner newsletter for pharmacy growth tips and platform updates.</span>
-                </label>
+                  <label htmlFor="newsletter" className="text-sm font-medium text-slate-500 cursor-pointer">Subscribe to our partner newsletter for pharmacy growth tips and platform updates.</label>
+                </div>
               </div>
 
               {/* Submission Feedback */}
@@ -220,11 +220,11 @@ const RegisterStore = () => {
               )}
 
               <div className="flex flex-col md:flex-row gap-4 pt-6">
-                <button type="button" className="btn bg-white border border-slate-200 text-slate-600 px-10 py-4 font-bold hover:bg-slate-50">Save Draft</button>
+                <button type="button" className="btn bg-white border border-slate-200 text-slate-600 px-10 py-4 md:py-3 font-bold hover:bg-slate-50 order-2 md:order-1">Save Draft</button>
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="btn btn-primary flex-1 py-4 text-lg font-bold shadow-xl shadow-primary/20 relative overflow-hidden"
+                  className="btn btn-primary flex-1 py-4 md:py-3 text-lg font-bold shadow-xl shadow-primary/20 relative overflow-hidden order-1 md:order-2"
                 >
                   {isSubmitting ? (
                     <div className="flex items-center justify-center gap-2">

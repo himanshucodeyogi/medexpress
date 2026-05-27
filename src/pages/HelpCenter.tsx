@@ -38,27 +38,27 @@ const HelpCenter = () => {
   return (
     <div className="bg-slate-50 min-h-screen">
       {/* Hero Section */}
-      <section className="bg-primary py-24 relative overflow-hidden">
+      <section className="bg-primary py-24 lg:py-36 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/20 rounded-full -ml-32 -mb-32 blur-3xl"></div>
         
         <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-8">How can we help you today?</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-8">How can we help you today?</h1>
           <div className="max-w-2xl mx-auto relative">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 w-6 h-6" />
             <input 
               type="text" 
               placeholder="Search for articles, topics, or keywords..." 
-              className="w-full pl-16 pr-8 py-5 rounded-[2rem] bg-white border-none focus:ring-4 focus:ring-white/20 shadow-2xl shadow-primary/20 text-lg"
+              className="w-full pl-16 pr-8 py-5 md:py-6 rounded-[2rem] bg-white border-none focus:ring-4 focus:ring-white/20 shadow-2xl shadow-primary/20 text-lg md:text-xl"
             />
           </div>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 -mt-12 pb-24 relative z-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 -mt-12 lg:-mt-16 pb-24 relative z-20">
         {/* Category Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          <div className="card p-8 hover:-translate-y-1 transition-all bg-white shadow-xl shadow-slate-200/50">
+          <div className="card p-6 md:p-8 hover:-translate-y-1 transition-all bg-white shadow-xl shadow-slate-200/50">
             <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500 mb-6">
               <Book className="w-7 h-7" />
             </div>
@@ -69,7 +69,7 @@ const HelpCenter = () => {
             </button>
           </div>
 
-          <div className="card p-8 hover:-translate-y-1 transition-all bg-white shadow-xl shadow-slate-200/50">
+          <div className="card p-6 md:p-8 hover:-translate-y-1 transition-all bg-white shadow-xl shadow-slate-200/50">
             <div className="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center text-green-500 mb-6">
               <MessageSquare className="w-7 h-7" />
             </div>
@@ -80,7 +80,7 @@ const HelpCenter = () => {
             </button>
           </div>
 
-          <div className="card p-8 hover:-translate-y-1 transition-all bg-white shadow-xl shadow-slate-200/50">
+          <div className="card p-6 md:p-8 hover:-translate-y-1 transition-all bg-white shadow-xl shadow-slate-200/50">
             <div className="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-500 mb-6">
               <ShieldCheck className="w-7 h-7" />
             </div>
@@ -93,21 +93,21 @@ const HelpCenter = () => {
         </div>
 
         {/* FAQs */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-20">
           <div className="lg:col-span-2 space-y-12">
             <h2 className="text-3xl font-bold text-slate-900">Frequently Asked Questions</h2>
-            <div className="space-y-8">
+            <div className="space-y-8 md:space-y-12">
               {faqs.map((group) => (
                 <div key={group.category} className="space-y-6">
                   <div className="flex items-center gap-3 text-primary">
                     {group.icon}
                     <h3 className="text-xl font-bold">{group.category}</h3>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
                     {group.questions.map((q) => (
                       <button 
                         key={q}
-                        className="p-6 bg-white rounded-2xl border border-slate-100 text-left hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all group"
+                        className="p-5 md:p-6 bg-white rounded-2xl border border-slate-100 text-left hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all group"
                       >
                         <p className="text-slate-700 font-bold group-hover:text-primary transition-colors">{q}</p>
                       </button>
